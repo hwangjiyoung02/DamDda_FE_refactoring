@@ -1,0 +1,23 @@
+.banner-container1 {
+  text-align: center; /* Centers the banner horizontally */
+  margin: 20px 0; /* Adds margin around the banner */
+}
+
+.banner-image1 {
+  width: 100%; /* Ensures the banner takes up the full width */
+  max-width: 1000px; /* Optional: Limits the max width */
+  height: 200px; /* Reduce the height */
+  
+}
+
+.banner-container2 {
+  text-align: center; /* Centers the banner horizontally */
+  margin: 20px 0; /* Adds margin around the banner */
+}
+
+.banner-image2 {
+  width: 100%; /* Ensures the banner takes up the full width */
+  max-width: 1100px; /* Optional: Limits the max width */
+  height: 180px; /* Reduce the height */
+  
+}
