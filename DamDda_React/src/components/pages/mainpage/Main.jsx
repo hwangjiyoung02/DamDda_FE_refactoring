@@ -1,15 +1,16 @@
 // src/components/MainContent.jsx
 import React from 'react';
 import { Footer } from '../../layout/Footer';
-import { Exhibition } from './Exhibition';
+import NewSection from './NewSection'; // NewsSection 대신 NewSection으로 변경
 import { Category } from '../../layout/Category';
 import { Header } from '../../layout/Header';
 import { CarouselComponent } from './Carousel';
-import { CollaborationSection } from './Collaboration';
+import {CollaborationSection} from './Collaboration'
+import {ServiceCards} from './ServiceCards'
+
 // import { Payment } from '../support/payment';
 // import Banner1 from '../../assets/banner-1.png'
-import Banner2 from '../../assets/banner-2.png'
-import Collaboration from '../../assets/collaboration.png'
+import Banner2 from '../../assets/Banner2.png'
 import {ProductRecommendations} from '../../layout/Product';
 import { SearchBar } from '../../layout/SearchBar';
 import "./MainBanner.css";
@@ -21,8 +22,8 @@ function Main() {
       <CarouselComponent />
       <Category />
       <SearchBar />
+      <ServiceCards></ServiceCards>
 
-      
       {/* Banner Image in between Category and Exhibition */}
       {/* <div className="banner-container1">
         <img
@@ -32,24 +33,27 @@ function Main() {
         />
       </div> */}
       
-      {/* <Exhibition /> */}
+
       
   <ProductRecommendations></ProductRecommendations>
   <ProductRecommendations></ProductRecommendations>
 
-  <CollaborationSection></CollaborationSection>
-      {/* <div className="banner-container2">
+  <div className="banner-container2">
         <img
           src={Banner2}
           alt="Banner"
-          className="banner-image"
+          className="banner-image2"
         />
       </div>
-      <div className="banner-container2">
-     
-           <img className="damdda-special" alt="Damdda special" src={Collaboration} />
+  <ProductRecommendations></ProductRecommendations>
+  <ProductRecommendations></ProductRecommendations>
 
-      </div> */}
+  <ProductRecommendations></ProductRecommendations>
+  <NewSection />
+
+  <CollaborationSection></CollaborationSection>
+     
+      
       <Footer />
       {/* <Payment /> */}
     </>

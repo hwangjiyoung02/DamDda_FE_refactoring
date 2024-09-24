@@ -17,6 +17,7 @@ import { Card, CardMedia, CardContent, Grid } from '@mui/material'; // MUI 컴�
 import CloseIcon from '@mui/icons-material/Close'; // 프로젝트 삭제 버튼을 위한 CloseIcon
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'; // 로고 파일
+import { SearchBar } from './SearchBar';
 
 const pages = ['카테고리'];
 
@@ -59,7 +60,7 @@ export function Header() {
       <Container
         maxWidth={false} // maxWidth를 false로 설정하여 100%가 기본값이 되지 않도록 설정
         sx={{
-          width: '70%', // 네브바의 너비를 전체의 70%로 설정
+          width: '65%', // 네브바의 너비를 전체의 70%로 설정
           margin: '0 auto', // 네브바를 중앙에 배치
         }}
       >
@@ -146,10 +147,10 @@ export function Header() {
           </Box>
 
           {/* 검색 바 추가 */}
-          <Box sx={{ flexGrow: 0, mr: 2 }}>
+          {/* <Box sx={{ flexGrow: 0, mr: 2 }}>
             <TextField size="small" placeholder="검색어를 입력해주세요." sx={{ backgroundColor: 'white', borderRadius: 20 }} />
-          </Box>
-
+          </Box> */}
+          <SearchBar></SearchBar>
           {/* 프로젝트 등록 버튼 및 프로젝트 목록 표시 */}
           <Box sx={{ flexGrow: 0, mr: 2, position: 'relative' }}>
   <Button

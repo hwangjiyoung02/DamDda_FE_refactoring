@@ -158,11 +158,14 @@ export const ProductRecommendations = () => {
       }}
     >
       <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', mb: 1 }}>
-        어쩌구저쩌구 {/* 타이틀 */}
+      <p className="text"> {/* 5px 패딩 적용 */}
+                                <span className="text-wrapper">[담ː따] 의 </span>
+                                <span className="span">기획전</span>
+                            </p> <Typography variant="body2" color="text.secondary">
+        담따의 인기 상품들을 한눈에!{/* 서브타이틀 */}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
-        아이고 골이야 {/* 서브타이틀 */}
-      </Typography>
+       </Typography>
+     
     </Box>
   
     </Box>

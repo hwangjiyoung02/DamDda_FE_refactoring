@@ -1,4 +1,15 @@
-:root {
+/* index.css 또는 App.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* :root {
   --tumblbug-com-noto-sans-KR-demilight-13-font-family: "Noto Sans KR", Helvetica;
   --tumblbug-com-noto-sans-KR-demilight-13-font-size: 13px;
   --tumblbug-com-noto-sans-KR-demilight-13-font-style: normal;
@@ -16,4 +27,4 @@
   letter-spacing: var(--tumblbug-com-noto-sans-KR-demilight-13-letter-spacing);
   line-height: var(--tumblbug-com-noto-sans-KR-demilight-13-line-height);
   color: var(--tumblbugcommine-shaft);
-}
+} */

@@ -15,12 +15,14 @@ export const SearchBar = () => {
         justifyContent: 'center',
         alignItems: 'center',
         margin:5,
+        border:null,
       }}
     >
       <TextField
         placeholder="새로운 일상이 필요하신가요?" // Placeholder text from the image
         onChange={handleSearchChange}
         variant="outlined"
+  
         fullWidth
         InputProps={{
           endAdornment: (
@@ -37,7 +39,7 @@ export const SearchBar = () => {
           },
         }}
         sx={{
-          width: 400,
+          width: 550,
           border: '2px solid #2bbdbd', // Teal border color
           borderRadius: '50px', // Full rounded corners
           backgroundColor: '#fff', // White background

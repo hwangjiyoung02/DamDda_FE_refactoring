@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅을 import
+import { useNavigate, useLocation } from 'react-router-dom'; // useNavigate와 useLocation 훅을 import
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 import axios from 'axios';
-import './payment.css';
+import './Payment.css';
 
 export function Payment() {
-  const [orderInfo, setOrderInfo] = useState({
+  const navigate = useNavigate();
+  const location = useLocation(); // 이전 페이지에서 전달된 데이터 접근
+  const [orderInfo, setOrderInfo] = useState(location.state || { // 전달된 state가 없을 경우 기본값 설정
+    projectTitle: '',
+    giftSet: '',
+    options: '',
+    price: 0,
+    quantity: 1,
     name: '',
     phoneNumber: '',
-    email: '',
+    email: ''
   });
 
   const [shippingInfo, setShippingInfo] = useState({
@@ -66,44 +73,71 @@ export function Payment() {
     setCustomMessage(e.target.value); // 사용자 정의 메시지 반영
   };
 
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 생성
-
+  // 주문 정보 제출 및 결제 처리
   const handleSubmit = async () => {
-    if (paymentMethod === 'tossPay') {
-      // Toss 결제창 호출
-      const tossPayments = await loadTossPayments('test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq'); // 클라이언트 키 설정
-      tossPayments.requestPayment('카드', { // 결제 수단 선택
-        amount: 33000, // 결제 금액
-        orderId: '7_XR8395y-HtJQb7Wb55L', // 주문 ID
-        orderName: '펀딩 결제', // 주문명
-        customerName: orderInfo.name || '테스트 사용자', // 구매자 이름
-        successUrl: "http://localhost:9000/toss/success", // Spring Boot 서버로 요청 (TossSuccess로 처리)
-        failUrl: "http://localhost:9000/toss/fail", // 결제 실패 시 Spring Boot 서버에서 처리
-      }).then(() => {
-        // 결제 성공 시 리다이렉트
-        navigate('/TossSuccess'); // React Router로 페이지 이동
-      }).catch(function (error) {
-        if (error.code === 'USER_CANCEL') {
-          console.log('결제창이 닫혔습니다.');
-        } else if (error.code === 'INVALID_CARD_COMPANY') {
-          console.log('유효하지 않은 카드 코드입니다.');
-        } else {
-          console.error('결제 실패:', error);
-        }
-      });
-    } else if (paymentMethod === 'kakaoPay') {
-      // 카카오페이 결제창 호출
-      axios
-        .post("http://localhost:9000/payment/kakao/ready")
-        .then((res) => {
-          const { next_redirect_pc_url } = res.data; // 카카오페이 결제 URL
-          window.location.href = next_redirect_pc_url; // 카카오페이 결제 페이지로 리디렉션
-        })
-        .catch((error) => {
-          console.error("Error initiating payment:", error);
-        });
-    } 
+    const orderData = {
+      delivery: {
+          deliveryName: orderInfo.name,
+          deliveryPhoneNumber: orderInfo.phoneNumber,
+          deliveryEmail: orderInfo.email,
+          deliveryAddress: shippingInfo.address,
+          deliveryDetailedAddress: shippingInfo.detailAddress,
+          deliveryPostCode: shippingInfo.postalCode,  // 우편번호 확인
+          deliveryMessage: customMessage || shippingInfo.request
+      },
+      payment: {
+          paymentMethod: paymentMethod,
+          paymentStatus: '결제 대기중', // 초기 상태
+      },
+      supportingProject: {
+          title: orderInfo.projectTitle,  // 프로젝트명
+          // 추가적으로 필요한 필드가 있다면 여기에 포함
+      },
+      supportingPackage: {
+          packageName: orderInfo.options,  // 패키지 이름
+          packagePrice: orderInfo.price * orderInfo.quantity,  // 결제 금액
+          packageCount: orderInfo.quantity // 패키지 수량 추가
+
+      },
+      packageCount: orderInfo.quantity,  // 패키지 수량
   };
+
+    try {
+      // 주문 정보 생성 POST 요청
+      const response = await axios.post('http://localhost:9000/order/create', orderData);
+      console.log('Order Data:', orderData);  // 서버로 전송 전에 데이터 확인
+
+      // 결제 수단에 따른 처리
+      if (paymentMethod === 'tossPay') {
+        const tossPayments = await loadTossPayments('test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq');
+        tossPayments.requestPayment('카드', {
+          amount: orderInfo.price * orderInfo.quantity + 3000,
+          orderId: response.data.orderId, // 서버에서 받은 주문 ID 사용
+          orderName: orderInfo.projectTitle || '펀딩 결제',
+          customerName: orderInfo.name || '테스트 사용자',
+          successUrl: "http://localhost:9000/toss/success",
+          failUrl: "http://localhost:9000/toss/fail",
+        }).then(() => {
+          navigate('/TossSuccess'); // 결제 성공 시 리다이렉트
+        }).catch(function (error) {
+          console.error('결제 실패:', error);
+        });
+      } else if (paymentMethod === 'kakaoPay') {
+        // 카카오페이 결제창 호출
+        axios
+          .post("http://localhost:9000/payment/kakao/ready", { orderId: response.data.orderId })
+          .then((res) => {
+            window.location.href = res.data.next_redirect_pc_url; // 카카오페이 결제 페이지로 리디렉션
+          })
+          .catch((error) => {
+            console.error("Error initiating payment:", error);
+          });
+      }
+    } catch (error) {
+      console.error('There was an error creating the order:', error);
+    }
+  };
+
 
   const sample6_execDaumPostcode = () => {
     new window.daum.Postcode({
@@ -129,21 +163,32 @@ export function Payment() {
           }
         }
 
-        setShippingInfo({
-          ...shippingInfo,
-          postalCode: data.zonecode,
-          address: addr,
-          extraAddress: extraAddr,
-        });
+        // 우편번호와 주소 정보를 업데이트
+      setShippingInfo((prevState) => ({
+        ...prevState,
+        postalCode: data.zonecode || '',  // zonecode가 없을 경우 빈 값 처리
+        address: addr,
+        extraAddress: extraAddr,
+      }));
+
+      // 디버깅을 위한 콘솔 출력
+      console.log('주소 정보:', {
+        postalCode: data.zonecode,
+        address: addr,
+        extraAddress: extraAddr,
+      });
       },
     }).open();
   };
 
+
+  
+
   return (
     <div className="container">
       <div className="order-summary">
-        <h2>프로젝트 이름</h2>
-        <p>가격 (원): 30000 | 수량: 1</p>
+        <h2>{orderInfo.projectTitle || '프로젝트 이름'}</h2>
+        <p>가격 (원): {orderInfo.price} | 수량: {orderInfo.quantity}</p>
       </div>
 
       <div className="form-section">
@@ -200,14 +245,7 @@ export function Payment() {
           value={shippingInfo.detailAddress}
           onChange={handleShippingChange}
         />
-        <input
-          type="text"
-          id="sample6_extraAddress"
-          name="extraAddress"
-          placeholder="참고항목"
-          value={shippingInfo.extraAddress}
-          readOnly
-        />
+       
         <div>
           <h4>Delivery Message</h4>
           <select value={shippingInfo.deliveryMessage} onChange={handleDeliveryMessageChange}>
@@ -262,9 +300,9 @@ export function Payment() {
 
       <div className="payment-summary">
         <h3>최종 펀딩 금액</h3>
-        <p>상품 금액: 30000 원</p>
+        <p>상품 금액: {orderInfo.price} 원</p>
         <p>배송비: 3000 원</p>
-        <p>최종 금액: 33000 원</p>
+        <p>최종 금액: {orderInfo.price * orderInfo.quantity + 3000} 원</p>
 
         <div className="agreement-section">
           <input type="checkbox" />
