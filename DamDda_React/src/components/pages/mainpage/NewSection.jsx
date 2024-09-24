@@ -6,30 +6,31 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // Example data for cards
 const cardData = [
   {
-    title: '클라우드 뉴스',
-    description: '10만 과학 콘텐츠 학습한 하이퍼클로바X 기반의 과학 지식 챗봇 서비스',
+    title: '펀딩 뉴스',
+    description: '1억 목표 달성! 성공적인 펀딩 프로젝트의 비결을 확인하세요.',
     buttonText: '자세히 보기',
     imageUrl: 'https://via.placeholder.com/300x200', // Replace with actual image URL
   },
   {
     title: '프로모션',
-    description: '인증서 자동 발급·갱신 Advanced DV 인증서 할인 프로모션 진행',
+    description: '최대 50% 할인! 지금 펀딩에 참여하고 특별 혜택을 누리세요.',
     buttonText: '자세히 보기',
     imageUrl: 'https://via.placeholder.com/300x200', // Replace with actual image URL
   },
   {
-    title: '클라우드 뉴스',
-    description: '이미지·음성 처리하는 멀티모달 생성형 AI 하이퍼클로바X',
+    title: '전통 문화 성공 사례',
+    description: '혁신적인 아이디어로 3천만원 펀딩을 달성한 프로젝트 소개.',
     buttonText: '자세히 보기',
     imageUrl: 'https://via.placeholder.com/300x200', // Replace with actual image URL
   },
   {
-    title: '프로모션',
-    description: '네이버웍스 플랫폼 런칭 기념 신규가입 고객 3개월 무료 혜택',
+    title: 'K-POP 새로운 프로젝트',
+    description: '최신 펀딩 프로젝트에 지금 참여하세요!',
     buttonText: '자세히 보기',
     imageUrl: 'https://via.placeholder.com/300x200', // Replace with actual image URL
   },
 ];
+
 
 const CardComponent = ({ title, description, buttonText, imageUrl }) => (
   <Card sx={{ borderRadius: '15px', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', height: '100%' }}>
@@ -51,7 +52,7 @@ const CardComponent = ({ title, description, buttonText, imageUrl }) => (
 const NewSection = () => (
   <Box sx={{ width: '70%', margin: 'auto', marginTop: 4,maxWidth:1500,height:500 }}>
     <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 4 }}>
-      네이버 클라우드 플랫폼의 최신 소식을 확인하세요
+      담따의 최신 소식을 확인하세요
     </Typography>
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Grid container spacing={6} sx={{ flexGrow: 1 }}>

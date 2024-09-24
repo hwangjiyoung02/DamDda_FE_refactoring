@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, InputAdornment, Box } from '@mui/material';
+import { TextField, InputAdornment, Box,Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchBar = () => {
@@ -14,21 +14,22 @@ export const SearchBar = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin:5,
-        border:null,
+        margin: 5,
+        border: null,
       }}
     >
       <TextField
         placeholder="새로운 일상이 필요하신가요?" // Placeholder text from the image
         onChange={handleSearchChange}
-        variant="outlined"
-  
         fullWidth
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
-              <SearchIcon />
-            </InputAdornment>
+              <InputAdornment position="end" sx={{ mt: '-4px' }}>
+                <Button onClick={() => console.log('Search icon clicked')} sx={{ minWidth: 0, padding: 0 }}>
+                  <SearchIcon />
+                </Button>
+              </InputAdornment>
+
           ),
           style: {
             borderRadius: '50px', // Full rounded border
@@ -36,24 +37,28 @@ export const SearchBar = () => {
             height: '100%', // Ensure the height matches the container
             display: 'flex',
             alignItems: 'center', // Vertically center the content
+            marginTop: '5px',
           },
         }}
         sx={{
-          width: 550,
+          width: 400,
           border: '2px solid #2bbdbd', // Teal border color
           borderRadius: '50px', // Full rounded corners
           backgroundColor: '#fff', // White background
           height: '56px', // Height to match the input field in the image
           fontSize: '1rem', // Increase font size for placeholder
           '& .MuiInputBase-input::placeholder': {
-            color: '#b0b0b0', // Gray placeholder color
+            color: '#ffffff', // Gray placeholder color
           },
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
               borderColor: 'transparent', // Hide default border
             },
             '&:hover fieldset': {
-              borderColor: '#2bbdbd', // Border color on hover
+              borderColor: 'transparent', // Hide default border
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: 'transparent', // Hide border when focused
             },
           },
         }}

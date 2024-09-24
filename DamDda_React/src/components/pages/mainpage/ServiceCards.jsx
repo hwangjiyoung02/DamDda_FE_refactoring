@@ -2,27 +2,31 @@ import React from 'react';
 import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'; // Placeholder for document icon
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney'; // Placeholder for money icon
+import StarIcon from '@mui/icons-material/Star';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const services = [
   {
-    title: '보험 리모델링 서비스',
-    description: '고객님께 맞는 최적의 보험을 찾아보세요',
-    icon: <InsertDriveFileIcon sx={{ fontSize: 50, color: 'white' }} />,
+    title: '협업하기',
+    description: '진행자와 함께 협업하고 성공적인 프로젝트를 만들어보세요.',
+    icon: <InsertDriveFileIcon sx={{ fontSize: 50, color: 'white' }} />, 
     backgroundColor: '#ff914d',
   },
   {
-    title: '보험계약대출',
-    description: '신용도 영향없는 보험계약 대출 받기',
-    icon: <AttachMoneyIcon sx={{ fontSize: 50, color: 'white' }} />,
+    title: '프로젝트 등록하기',
+    description: '새로운 프로젝트를 등록하고 펀딩을 시작하세요.',
+    icon: <AddCircleOutlineIcon sx={{ fontSize: 50, color: 'white' }} />,
     backgroundColor: '#4b87f5',
   },
   {
-    title: '보험계약대출',
-    description: '신용도 영향없는 보험계약 대출 받기',
-    icon: <AttachMoneyIcon sx={{ fontSize: 50, color: 'white' }} />,
-    backgroundColor: '#4b87f5',
+    title: '인기 프로젝트 가기',
+    description: '가장 인기 있는 프로젝트에 참여하고 후원하세요.',
+    icon: <StarIcon sx={{ fontSize: 50, color: 'white' }} />,
+    backgroundColor: '#ffc107',
   },
 ];
+
+
 export const ServiceCards = () => {
   return (
 

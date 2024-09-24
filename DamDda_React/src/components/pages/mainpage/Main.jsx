@@ -24,34 +24,26 @@ function Main() {
       <SearchBar />
       <ServiceCards></ServiceCards>
 
-      {/* Banner Image in between Category and Exhibition */}
-      {/* <div className="banner-container1">
-        <img
-          src={Banner1}
-          alt="Banner"
-          className="banner-image"
-        />
-      </div> */}
-      
+
 
       
-  <ProductRecommendations></ProductRecommendations>
-  <ProductRecommendations></ProductRecommendations>
+      <ProductRecommendations></ProductRecommendations>
+      <ProductRecommendations></ProductRecommendations>
 
-  <div className="banner-container2">
-        <img
-          src={Banner2}
-          alt="Banner"
-          className="banner-image2"
-        />
-      </div>
-  <ProductRecommendations></ProductRecommendations>
-  <ProductRecommendations></ProductRecommendations>
+      <div className="banner-container2">
+            <img
+              src={Banner2}
+              alt="Banner"
+              className="banner-image2"
+            />
+          </div>
+      <ProductRecommendations></ProductRecommendations>
+      <ProductRecommendations></ProductRecommendations>
 
-  <ProductRecommendations></ProductRecommendations>
-  <NewSection />
+      <ProductRecommendations></ProductRecommendations>
+      <NewSection />
 
-  <CollaborationSection></CollaborationSection>
+      <CollaborationSection></CollaborationSection>
      
       
       <Footer />
