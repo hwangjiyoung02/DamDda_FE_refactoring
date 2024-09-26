@@ -204,6 +204,20 @@
   position: relative;
   width: 45px;
 }
+/* Category.css */
+.button, .button-2 {
+  transition: box-shadow 0.7s ease, background-color 0.7s ease, border 1s ease; /* 부드러운 효과를 위한 트랜지션 */
+  border-radius: 10px; /* 버튼의 기본 상태에서도 둥글게 설정 */
+  box-shadow: 0 16px 16px rgba(0, 0, 0, 0.1); /* 기본 상태에서 은은한 그림자 */
+  overflow: hidden; /* 내부 요소가 버튼을 벗어나지 않도록 설정 */
+}
 
-/* ////
-*/
+
+
+.margin:hover {
+  box-shadow: 0 12px 12px rgba(0, 0, 0, 0.2); /* 마우스를 올렸을 때 퍼지는 그림자 효과 */
+  background-color: #f0f0f0; /* 마우스를 올렸을 때 배경 색상 변경 */
+  border-radius: 20px; /* 그림자와 버튼의 둥근 모서리 유지 */
+}
+
+

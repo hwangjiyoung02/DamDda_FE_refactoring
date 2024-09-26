@@ -34,7 +34,7 @@ const cardData = [
 
 const CardComponent = ({ title, description, buttonText, imageUrl }) => (
   <Card sx={{ borderRadius: '15px', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', height: '100%' }}>
-    <CardMedia component="img" image={imageUrl} alt={title} sx={{ height: 150 }} />
+    <CardMedia component="img" image={imageUrl} alt={title} sx={{ height: 180 }} />
     <CardContent>
       <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', marginBottom: 1 }}>
         {title}
@@ -50,7 +50,7 @@ const CardComponent = ({ title, description, buttonText, imageUrl }) => (
 );
 
 const NewSection = () => (
-  <Box sx={{ width: '70%', margin: 'auto', marginTop: 4,maxWidth:1500,height:500 }}>
+  <Box sx={{ width: '80%', margin: 'auto', marginTop: 4,maxWidth:1500,height:500 }}>
     <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 4 }}>
       담따의 최신 소식을 확인하세요
     </Typography>

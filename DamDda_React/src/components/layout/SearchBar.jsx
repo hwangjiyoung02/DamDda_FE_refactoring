@@ -24,7 +24,7 @@ export const SearchBar = () => {
         fullWidth
         InputProps={{
           endAdornment: (
-              <InputAdornment position="end" sx={{ mt: '-4px' }}>
+              <InputAdornment position="end" sx={{ mt: '-8px', mr:'8px' }}>
                 <Button onClick={() => console.log('Search icon clicked')} sx={{ minWidth: 0, padding: 0 }}>
                   <SearchIcon />
                 </Button>
@@ -41,8 +41,8 @@ export const SearchBar = () => {
           },
         }}
         sx={{
-          width: 400,
-          border: '2px solid #2bbdbd', // Teal border color
+          width: 500,
+          border: '2px solid #7a82ed', // Teal border color
           borderRadius: '50px', // Full rounded corners
           backgroundColor: '#fff', // White background
           height: '56px', // Height to match the input field in the image

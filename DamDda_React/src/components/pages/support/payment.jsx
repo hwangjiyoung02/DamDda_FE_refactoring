@@ -76,6 +76,7 @@ export function Payment() {
   // 주문 정보 제출 및 결제 처리
   const handleSubmit = async () => {
     const orderData = {
+      
       delivery: {
           deliveryName: orderInfo.name,
           deliveryPhoneNumber: orderInfo.phoneNumber,

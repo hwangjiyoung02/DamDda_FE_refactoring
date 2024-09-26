@@ -60,7 +60,7 @@ export function Header() {
       <Container
         maxWidth={false} // maxWidth를 false로 설정하여 100%가 기본값이 되지 않도록 설정
         sx={{
-          width: '65%', // 네브바의 너비를 전체의 70%로 설정
+          width: '70%', // 네브바의 너비를 전체의 70%로 설정
           margin: '0 auto', // 네브바를 중앙에 배치
         }}
       >
@@ -107,26 +107,7 @@ export function Header() {
               </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-
+         
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: 2, mt: 2, alignItems: 'center' }}>
             {pages.map((page) => (
               <Button
@@ -150,7 +131,9 @@ export function Header() {
           {/* <Box sx={{ flexGrow: 0, mr: 2 }}>
             <TextField size="small" placeholder="검색어를 입력해주세요." sx={{ backgroundColor: 'white', borderRadius: 20 }} />
           </Box> */}
-          <SearchBar></SearchBar>
+          <Box width={300}>          
+            <SearchBar></SearchBar>
+          </Box>
           {/* 프로젝트 등록 버튼 및 프로젝트 목록 표시 */}
           <Box sx={{ flexGrow: 0, mr: 2, position: 'relative' }}>
   <Button
@@ -164,7 +147,7 @@ export function Header() {
       padding: '8px 16px',
       boxShadow: 'none',
       '&:hover': {
-        backgroundColor: '#2bbdbd',
+        backgroundColor: '#33C2E2',
       },
     }}
   >
@@ -235,7 +218,7 @@ export function Header() {
                   borderRadius: '10px',
                   padding: '8px 16px',
                   '&:hover': {
-                    backgroundColor: '#2bbdbd',
+                    backgroundColor: '#33C2E2',
                   },
                 }}
               >
