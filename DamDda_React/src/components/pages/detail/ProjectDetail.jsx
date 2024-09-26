@@ -5,6 +5,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 const Container = styled("div")({
   padding: "20px",
   backgroundColor: "#f0f0f0",
@@ -102,6 +105,10 @@ const ProjectDetail = () => {
   }, [selectedPackages]);
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <Container>
       {/* 상세 설명 섹션 */}
       <DetailSection>
@@ -174,6 +181,10 @@ const ProjectDetail = () => {
         )}
       </PackageSection>
     </Container>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

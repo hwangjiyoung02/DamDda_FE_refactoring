@@ -3,6 +3,9 @@ import { TextField, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Link as MuiLink } from "@mui/material";
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 const FindID = () => {
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [nameError, setNameError] = useState("");
@@ -33,6 +36,9 @@ const FindID = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
     <div
       style={{
         display: "flex",
@@ -110,6 +116,10 @@ const FindID = () => {
         </form>
       </div>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

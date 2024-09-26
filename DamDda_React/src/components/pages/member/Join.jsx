@@ -15,6 +15,9 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styled from "styled-components";
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 const FormHelperTexts = styled(FormHelperText)`
   width: 100%;
   padding-left: 16px;
@@ -242,6 +245,9 @@ const Join = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -442,6 +448,10 @@ const Join = () => {
         </form>
       </Container>
     </ThemeProvider>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

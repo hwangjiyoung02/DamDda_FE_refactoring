@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { TextField, Button, Link as MuiLink } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
+
 const Login = () => {
   const [formData, setFormData] = useState({ id: "", password: "" });
   const [idError, setIdError] = useState("");
@@ -37,6 +41,10 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <div
       style={{
         display: "flex",
@@ -113,6 +121,10 @@ const Login = () => {
         </div>
       </form>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

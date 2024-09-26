@@ -20,6 +20,10 @@ import DetailPage from "./detailPage";
 import Package from "./package";
 import ProjectDocument from "./projectDocument";
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
+
 const Register = () => {
   const [formData, setFormData] = useState({
     category_id: "",
@@ -99,6 +103,10 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div style={{ padding: "20px" }}>
         <Typography variant="h5">프로젝트 등록하기</Typography>
@@ -382,6 +390,10 @@ const Register = () => {
         </Typography>
       </div>
     </LocalizationProvider>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

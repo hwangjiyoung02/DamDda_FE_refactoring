@@ -14,6 +14,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CloseIcon from "@mui/icons-material/Close";
 import Alert from "@mui/material/Alert";
 import styled from "styled-components";
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 
 const DetailPage = () => {
   const [formData, setFormData] = useState({
@@ -86,6 +89,10 @@ const DetailPage = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         {/* 페이지 제목과 버튼 */}
@@ -246,6 +253,10 @@ const DetailPage = () => {
         </div>
       </div>
     </LocalizationProvider>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

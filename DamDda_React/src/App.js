@@ -18,9 +18,12 @@ import Join from './components/pages/member/Join';
 import Detail from './components/pages/detail/Detail';
 import Register from './components/pages/register/Register';
 import ErrorPage from './components/pages/error/ErrorPage';
+
 /////////////////////////////혜원////////////////////////////////////
 import MyPage from './components/pages/mypage/Mypage';
 import styles from './components/styles/style.css'
+import ProjectDetail from './components/pages/detail/ProjectDetail';
+import ProjectDetail2 from './components/pages/detail/ProjectDetail2';
 function App() {
  
 
@@ -42,6 +45,9 @@ function App() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/register" element={<Register />} />
         <Route path="/error" element={<ErrorPage />} />
+        <Route path="/projectDetail" element={<ProjectDetail />} />
+        <Route path="/projectDetail2" element={<ProjectDetail2 />} />
+
       {/* /////////////////////////////혜원/////////////////////////////////// */}
       <Route path="/mypage" element={<MyPage />} />
 

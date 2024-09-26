@@ -10,6 +10,10 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/system";
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
+
 const VisuallyHiddenInput = styled("input")({
   display: "none",
 });
@@ -68,6 +72,10 @@ const ProjectDocument = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <div style={{ marginTop: "40px" }}>
       <Typography variant="h6">진행자 서류 제출</Typography>
       <p>
@@ -189,6 +197,10 @@ const ProjectDocument = () => {
         </Alert>
       </Snackbar>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

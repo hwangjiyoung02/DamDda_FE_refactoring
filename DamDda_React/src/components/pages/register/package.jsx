@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./package.css";
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 
 const Package = () => {
   const [reward_name, setReward_name] = useState("");
@@ -152,6 +155,10 @@ const Package = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <div className="package-page">
       <div className="package-section1">
         <h2>선물 옵션</h2>
@@ -300,6 +307,10 @@ const Package = () => {
         )}
       </div>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

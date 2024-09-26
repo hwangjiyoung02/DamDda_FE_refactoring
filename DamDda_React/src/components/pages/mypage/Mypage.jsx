@@ -58,21 +58,21 @@ const Mypage = () => {
 
   return (
     <>
+    
     <Header />
-
       <div className="container">
+        <div>
+          {/* 헤더와 탭은 공통으로 표시됩니다 */}
+          <Headers nickname={profileData.nickname || "사용자"} />{" "}
+          <TabsUnderlinePlacement selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
-    <div>
-      {/* 헤더와 탭은 공통으로 표시됩니다 */}
-      <Headers nickname={profileData.nickname || "사용자"} />{" "}
-      <TabsUnderlinePlacement selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-
-      {/* 각 탭에 맞는 콘텐츠를 조건부 렌더링 */}
-      {renderSelectedTabContent()}
+          {/* 각 탭에 맞는 콘텐츠를 조건부 렌더링 */}
+          {renderSelectedTabContent()}
+        </div>
     </div>
-    </div>
-                <Footer />
-                </>
+    <Footer />
+               
+    </>
 
   );
 };

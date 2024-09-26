@@ -3,8 +3,11 @@ import { Typography, LinearProgress, Divider, Button, Tabs, Tab, Modal, Box, Tex
 import { styled } from "@mui/system";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ProjectDetail from "./details";
+import ProjectDetail from "./ProjectDetail";
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 
 const ProductContainer = styled("div")({
   position: "relative",
@@ -176,6 +179,10 @@ const Detail = () => {
 
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <div style={{ padding: "20px" }}>
       <div style={{ marginBottom: "20px" }}>
         <Typography variant="category">{category}</Typography><br/>
@@ -406,6 +413,10 @@ const Detail = () => {
         </ModalBox>
       </Modal>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

@@ -1,4 +1,5 @@
-.category {
+/* Category.css */
+.category-wrapper {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -6,17 +7,12 @@
   height: 125px;
   justify-content: center;
   position: relative;
-
-
-
-  align-items: center;
-
-  max-width: 1920px; /* Maximum width the footer can have */
-  margin: 0 auto; /* Horizontally centers the footer */
-      width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.category .div {
+.category-buttons-container {
   align-items: flex-end;
   display: flex;
   flex: 0 0 auto;
@@ -28,20 +24,19 @@
   width: 1064px;
 }
 
-.category .button {
+.category-button, .category-button-2 {
   all: unset;
   align-items: center;
   box-sizing: border-box;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  flex-grow: 1;
   gap: 8px;
   max-width: 68px;
   position: relative;
+  width: 68px;
 }
 
-.category .margin {
+.category-margin {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -53,7 +48,7 @@
   width: 80px;
 }
 
-.category .background {
+.category-background {
   align-items: center;
   background-color: var(--tumblbugcomwild-sand);
   border-radius: 16px;
@@ -65,13 +60,13 @@
   width: 68px;
 }
 
-.category .d-abstract {
+.category-image {
   height: 53px;
   position: relative;
   width: 45px;
 }
 
-.category .container {
+.category-container {
   align-items: center;
   display: flex;
   flex: 0 0 auto;
@@ -81,34 +76,17 @@
   width: 68px;
 }
 
-.category .text-wrapper {
+.category-text-wrapper {
   color: var(--tumblbugcommine-shaft);
   font-family: var(--tumblbug-com-noto-sans-KR-demilight-13-font-family);
   font-size: var(--tumblbug-com-noto-sans-KR-demilight-13-font-size);
-  font-style: var(--tumblbug-com-noto-sans-KR-demilight-13-font-style);
   font-weight: var(--tumblbug-com-noto-sans-KR-demilight-13-font-weight);
-  letter-spacing: var(--tumblbug-com-noto-sans-KR-demilight-13-letter-spacing);
-  line-height: var(--tumblbug-com-noto-sans-KR-demilight-13-line-height);
-  margin-top: -1px;
-  position: relative;
   text-align: center;
   white-space: nowrap;
   width: fit-content;
 }
 
-.category .button-2 {
-  all: unset;
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-width: 68px;
-  position: relative;
-  width: 68px;
-}
-
-.category .cosmetic-composition-wrapper {
+.category-image-wrapper {
   background-color: var(--tumblbugcomwild-sand);
   border-radius: 16px;
   height: 68px;
@@ -117,7 +95,7 @@
   width: 68px;
 }
 
-.category .cosmetic-composition {
+.category-image-small {
   height: 50px;
   left: 10px;
   position: absolute;
@@ -125,99 +103,15 @@
   width: 57px;
 }
 
-.category .div-wrapper {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  padding: 0px 9.55px 0px 9.53px;
-  position: relative;
-  width: 68px;
+.category-button-hover {
+  transition: box-shadow 0.7s ease, background-color 0.7s ease, border 1s ease;
+  border-radius: 10px;
+  box-shadow: 0 16px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.category .pink-headphones {
-  height: 53px;
-  position: relative;
-  width: 49px;
+.category-button-hover:hover {
+  box-shadow: 0 12px 12px rgba(0, 0, 0, 0.2);
+  background-color: #f0f0f0;
+  border-radius: 20px;
 }
-
-.category .movie-video-camera {
-  height: 45px;
-  position: relative;
-  width: 53px;
-}
-
-.category .container-2 {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  padding: 0px 21.76px 0px 21.77px;
-  position: relative;
-  width: 68px;
-}
-
-.category .text-wrapper-2 {
-  color: var(--tumblbugcommine-shaft);
-  font-family: var(--tumblbug-com-noto-sans-KR-demilight-13-font-family);
-  font-size: var(--tumblbug-com-noto-sans-KR-demilight-13-font-size);
-  font-style: var(--tumblbug-com-noto-sans-KR-demilight-13-font-style);
-  font-weight: var(--tumblbug-com-noto-sans-KR-demilight-13-font-weight);
-  letter-spacing: var(--tumblbug-com-noto-sans-KR-demilight-13-letter-spacing);
-  line-height: var(--tumblbug-com-noto-sans-KR-demilight-13-line-height);
-  margin-left: -11.77px;
-  margin-right: -11.77px;
-  margin-top: -1px;
-  position: relative;
-  text-align: center;
-  white-space: nowrap;
-  width: fit-content;
-}
-
-.category .img {
-  align-self: stretch;
-  flex: 1;
-  flex-grow: 1;
-  position: relative;
-}
-
-.category .element {
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 68px;
-  position: relative;
-  width: 68px;
-}
-
-.category .container-3 {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  padding: 0px 3.42px;
-  position: relative;
-  width: 68px;
-}
-
-.category .game-controller {
-  height: 49px;
-  position: relative;
-  width: 45px;
-}
-/* Category.css */
-.button, .button-2 {
-  transition: box-shadow 0.7s ease, background-color 0.7s ease, border 1s ease; /* 부드러운 효과를 위한 트랜지션 */
-  border-radius: 10px; /* 버튼의 기본 상태에서도 둥글게 설정 */
-  box-shadow: 0 16px 16px rgba(0, 0, 0, 0.1); /* 기본 상태에서 은은한 그림자 */
-  overflow: hidden; /* 내부 요소가 버튼을 벗어나지 않도록 설정 */
-}
-
-
-
-.margin:hover {
-  box-shadow: 0 12px 12px rgba(0, 0, 0, 0.2); /* 마우스를 올렸을 때 퍼지는 그림자 효과 */
-  background-color: #f0f0f0; /* 마우스를 올렸을 때 배경 색상 변경 */
-  border-radius: 20px; /* 그림자와 버튼의 둥근 모서리 유지 */
-}
-
-

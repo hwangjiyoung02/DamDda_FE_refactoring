@@ -1,6 +1,10 @@
 import React from "react";
 import Game from "./Game";
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
+
 const ErrorPage = () => {
   const handleGoBack = () => {
     window.history.back();
@@ -11,6 +15,10 @@ const ErrorPage = () => {
   };
 
   return (
+    <>
+    <Header />
+     	 <div className="container">
+
     <div className="error-container">
       <h1>잘못된 접근입니다.</h1>
       <p>
@@ -24,6 +32,10 @@ const ErrorPage = () => {
         <button onClick={handleGoHome}>메인으로 가기</button>
       </div>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 
