@@ -1,7 +1,7 @@
 import React from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import './YourPage.css';  // CSS 파일을 import
+import './YourPage.module.css';  // CSS 파일을 import
 
 export function YourPage() {
     return (

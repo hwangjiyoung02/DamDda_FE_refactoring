@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-import "../styles/style.css";
 
 // 이미지 import
 import link1Svg from "../assets/link-1.svg";

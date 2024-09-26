@@ -9,7 +9,7 @@ import axios from 'axios';
 import './Payment.css';
 import { Header } from '../../layout/Header';
 
-export function Payment() {
+function Payment() {
   const navigate = useNavigate();
   const location = useLocation(); // 이전 페이지에서 전달된 데이터 접근
   const [orderInfo, setOrderInfo] = useState(location.state || { // 전달된 state가 없을 경우 기본값 설정
@@ -345,3 +345,4 @@ export function Payment() {
   
   );
 }
+export default Payment;
