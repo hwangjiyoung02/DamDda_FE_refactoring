@@ -58,7 +58,7 @@ export function Header() {
   return (
     <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
       <Container
-        maxWidth={false} // maxWidth를 false로 설정하여 100%가 기본값이 되지 않도록 설정
+        maxWidth='1520px' // maxWidth를 false로 설정하여 100%가 기본값이 되지 않도록 설정
         sx={{
           width: '70%', // 네브바의 너비를 전체의 70%로 설정
           margin: '0 auto', // 네브바를 중앙에 배치
@@ -127,51 +127,50 @@ export function Header() {
             ))}
           </Box>
 
-          {/* 검색 바 추가 */}
-          {/* <Box sx={{ flexGrow: 0, mr: 2 }}>
-            <TextField size="small" placeholder="검색어를 입력해주세요." sx={{ backgroundColor: 'white', borderRadius: 20 }} />
-          </Box> */}
+          {/* 검색 바 */}
           <Box width={300}>          
             <SearchBar></SearchBar>
           </Box>
+
           {/* 프로젝트 등록 버튼 및 프로젝트 목록 표시 */}
           <Box sx={{ flexGrow: 0, mr: 2, position: 'relative' }}>
-  <Button
-    variant="contained"
-    onClick={handleShowProjects}
-    sx={{
-      backgroundColor: '#7a82ed',
-      color: 'white',
-      fontWeight: 'bold',
-      borderRadius: '10px',
-      padding: '8px 16px',
-      boxShadow: 'none',
-      '&:hover': {
-        backgroundColor: '#33C2E2',
-      },
-    }}
-  >
-    프로젝트 등록
-  </Button>
+         
+          <Button
+            variant="contained"
+            onClick={handleShowProjects}
+            sx={{
+              backgroundColor: '#7a82ed',
+              color: 'white',
+              fontWeight: 'bold',
+              borderRadius: '10px',
+              padding: '8px 16px',
+              boxShadow: 'none',
+              '&:hover': {
+                backgroundColor: '#33C2E2',
+              },
+            }}
+          >
+            프로젝트 등록
+          </Button>
 
-  {showProjects && (
-    <Box
-      sx={{
-        marginTop: '10px',
-        padding: '10px',
-        border: '1px solid #ccc',
-        borderRadius: '10px',
-        backgroundColor: 'white',
-        boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
-        position: 'absolute', // 버튼 아래에 위치시키기 위해 절대 위치 지정
-        top: '100%', // 버튼 바로 아래에 위치
-        left: '50%', // 수평 중앙 정렬
-        transform: 'translateX(-50%)', // 중앙 정렬 보정
-        width: '200px', // 원하는 너비로 설정
-        zIndex: 1000, // 다른 요소보다 상위에 위치하도록 zIndex를 크게 설정
+      {showProjects && (
+        <Box
+          sx={{
+            marginTop: '10px',
+            padding: '10px',
+            border: '1px solid #ccc',
+            borderRadius: '10px',
+            backgroundColor: 'white',
+            boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
+            position: 'absolute', // 버튼 아래에 위치시키기 위해 절대 위치 지정
+            top: '100%', // 버튼 바로 아래에 위치
+            left: '50%', // 수평 중앙 정렬
+            transform: 'translateX(-50%)', // 중앙 정렬 보정
+            width: '200px', // 원하는 너비로 설정
+            zIndex: 1000, // 다른 요소보다 상위에 위치하도록 zIndex를 크게 설정
 
-      }}
-    >
+          }}
+        >
       <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
         +   새로운 프로젝트
       </Typography>

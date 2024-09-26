@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // useNavigate와 useLocation 훅을 import
 import { loadTossPayments } from "@tosspayments/payment-sdk";
+import { Radio, RadioGroup, FormControlLabel, FormControl } from '@mui/material';
+import kakaopay from '../../assets/kakao.png'; // 로고 파일
+import tosspay from '../../assets/toss.png'; // 로고 파일
+
 import axios from 'axios';
 import './Payment.css';
+import { Header } from '../../layout/Header';
 
 export function Payment() {
   const navigate = useNavigate();
@@ -186,39 +191,47 @@ export function Payment() {
   
 
   return (
-    <div className="container">
-      <div className="order-summary">
-        <h2>{orderInfo.projectTitle || '프로젝트 이름'}</h2>
-        <p>가격 (원): {orderInfo.price} | 수량: {orderInfo.quantity}</p>
-      </div>
 
-      <div className="form-section">
-        <h3>주문자 정보 수정</h3>
-        <input
-          type="text"
-          name="name"
-          placeholder="마이페이지에 등록된 이름"
-          value={orderInfo.name}
-          onChange={handleOrderChange}
-        />
-        <input
-          type="text"
-          name="phoneNumber"
-          placeholder="마이페이지에 등록된 전화번호"
-          value={orderInfo.phoneNumber}
-          onChange={handleOrderChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="마이페이지에 등록된 이메일"
-          value={orderInfo.email}
-          onChange={handleOrderChange}
-        />
-      </div>
+<div className="big-container">
+  <div className="container">
+    <div className="order-summary">
+      <h2>{orderInfo.projectTitle || '프로젝트 이름'}</h2>
+      <p>선물 구성/옵션: {orderInfo.giftSet}</p>
+      <p>가격 (원): {orderInfo.price}</p>
+      <p>수량: {orderInfo.quantity}</p>
+    </div>
 
-      <div className="form-section">
-        <h3>배송지 정보</h3>
+    <div className="form-section">
+      <h3>주문자 정보 수정</h3>
+      <input
+        type="text"
+        name="name"
+        placeholder="마이페이지에 등록된 이름"
+        value={orderInfo.name}
+        onChange={handleOrderChange}
+        className="input"
+      />
+      <input
+        type="text"
+        name="phoneNumber"
+        placeholder="마이페이지에 등록된 전화번호"
+        value={orderInfo.phoneNumber}
+        onChange={handleOrderChange}
+        className="input"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="마이페이지에 등록된 이메일"
+        value={orderInfo.email}
+        onChange={handleOrderChange}
+        className="input"
+      />
+    </div>
+
+    <div className="form-section">
+      <h3>배송지 정보</h3>
+      <div className="address-group">
         <input
           type="text"
           id="sample6_postcode"
@@ -226,96 +239,109 @@ export function Payment() {
           placeholder="우편번호"
           value={shippingInfo.postalCode}
           readOnly
+          className="input"
         />
-        <button type="button" onClick={sample6_execDaumPostcode}>
+        <button type="button" className="button" onClick={sample6_execDaumPostcode}>
           우편번호 찾기
         </button>
-        <input
-          type="text"
-          id="sample6_address"
-          name="address"
-          placeholder="주소"
-          value={shippingInfo.address}
-          readOnly
-        />
-        <input
-          type="text"
-          id="sample6_detailAddress"
-          name="detailAddress"
-          placeholder="상세 주소"
-          value={shippingInfo.detailAddress}
-          onChange={handleShippingChange}
-        />
-       
-        <div>
-          <h4>Delivery Message</h4>
-          <select value={shippingInfo.deliveryMessage} onChange={handleDeliveryMessageChange}>
-            <option value="문앞에 놓아주세요">문앞에 놓아주세요</option>
-            <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
-            <option value="직접 받을 거예요">직접 받을 거예요</option>
-            <option value="직접 입력">직접 입력</option>
-          </select>
-        </div>
-        {showCustomMessageInput && (
-          <div>
-            <textarea
-              value={customMessage}
-              onChange={handleCustomMessageChange}
-              maxLength={100}
-              placeholder="직접 입력 (최대 100자)"
-            />
-          </div>
-        )}
       </div>
+      <input
+        type="text"
+        id="sample6_address"
+        name="address"
+        placeholder="주소"
+        value={shippingInfo.address}
+        readOnly
+        className="input"
+      />
+      <input
+        type="text"
+        id="sample6_detailAddress"
+        name="detailAddress"
+        placeholder="상세 주소"
+        value={shippingInfo.detailAddress}
+        onChange={handleShippingChange}
+        className="input"
+      />
 
-      <div className="form-section">
-        <h3>결제 수단</h3>
-        <div>
-          <input
-            type="radio"
-            value="naverPay"
-            checked={paymentMethod === 'naverPay'}
-            onChange={handlePaymentChange}
-          />
-          <label>네이버 페이</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="kakaoPay"
-            checked={paymentMethod === 'kakaoPay'}
-            onChange={handlePaymentChange}
-          />
-          <label>카카오페이</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="tossPay"
-            checked={paymentMethod === 'tossPay'}
-            onChange={handlePaymentChange}
-          />
-          <label>토스 페이</label>
-        </div>
+      <div>
+        <h4>Delivery Message</h4>
+        <select value={shippingInfo.deliveryMessage} onChange={handleDeliveryMessageChange}>
+          <option value="문앞에 놓아주세요">문앞에 놓아주세요</option>
+          <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
+          <option value="직접 받을 거예요">직접 받을 거예요</option>
+          <option value="직접 입력">직접 입력</option>
+        </select>
       </div>
-
-      <div className="payment-summary">
-        <h3>최종 펀딩 금액</h3>
-        <p>상품 금액: {orderInfo.price} 원</p>
-        <p>배송비: 3000 원</p>
-        <p>최종 금액: {orderInfo.price * orderInfo.quantity + 3000} 원</p>
-
-        <div className="agreement-section">
-          <input type="checkbox" />
-          <label>전체 동의</label>
-          <input type="checkbox" />
-          <label>구매조건, 결제 진행 및 결제 서비스 동의</label>
-          <input type="checkbox" />
-          <label>개인정보 제 3자 제공 동의</label>
+      {showCustomMessageInput && (
+        <div>
+          <textarea
+            value={customMessage}
+            onChange={handleCustomMessageChange}
+            maxLength={100}
+            placeholder="직접 입력 (최대 100자)"
+          />
         </div>
-
-        <button onClick={handleSubmit}>간편 결제 하기</button>
-      </div>
+      )}
     </div>
+
+    <div className="form-section">
+      <h3>결제 수단</h3>
+      <FormControl component="fieldset">
+        <RadioGroup
+          aria-label="payment-method"
+          name="payment-method"
+          value={paymentMethod}
+          onChange={handlePaymentChange}
+        >
+          <FormControlLabel
+            value="naverPay"
+            control={<Radio color="success" size="medium" />}
+            label={<><span>네이버 페이</span><img src="naverpay.png" alt="네이버페이" /></>}
+          />
+          <FormControlLabel
+            value="kakaoPay"
+            control={<Radio color="success" size="medium" />}
+            label={<><span>카카오페이</span><img src={kakaopay} alt="카카오페이" /></>}
+          />
+          <FormControlLabel
+            value="tossPay"
+            control={<Radio color="success" size="medium" />}
+            label={<><span>토스 페이</span><img src={tosspay} alt="토스페이" /></>}
+          />
+        </RadioGroup>
+      </FormControl>
+    </div>
+  </div>
+
+  <div className="small-container">
+    <div className="payment-summary">
+      <h3>최종 펀딩 금액</h3>
+      <p>상품 금액: {orderInfo.price} 원</p>
+      <p>배송비: 3000 원</p>
+      <p>최종 금액: {orderInfo.price * orderInfo.quantity + 3000} 원</p>
+
+      <div className="checkbox-group">
+          <label>
+            <input type="checkbox" />
+            전체 동의
+          </label>
+          <label>
+            <input type="checkbox" />
+            구매조건, 결제 진행 및 결제 서비스 동의
+          </label>
+          <label>
+            <input type="checkbox" />
+            개인정보 제 3자 제공 동의
+          </label>
+        </div>
+      </div>
+
+      <button onClick={handleSubmit} className="button">간편 결제 하기</button>
+    </div>
+  </div>
+
+
+  
   );
 }

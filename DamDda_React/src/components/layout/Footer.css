@@ -3,13 +3,18 @@
     background-color: #222222;
     display: flex;
     flex-direction: column;
-    height: 518px;
-
+    height: 520px;
+    bottom: 0; /* Stick it to the bottom */
+    z-index: 1000; /* Make sure it stays on top */
+    width: 100%; /* Full width to stretch across the screen */
     max-width: 1920px; /* Maximum width the footer can have */
-    margin: 0 auto; /* Horizontally centers the footer */
-    position:relative;
-        width: 100%;
+    position: fixed; /* Fix the footer at the bottom */
+    left: 50%; /* Position it relative to the center */
+    transform: translateX(-50%); /* Adjust for center alignment */
+    margin: 0 auto; /* Center horizontally */
+    color: white; /* Text color */
 }
+
 
 .footer .footer-container {
     align-items: flex-start;
