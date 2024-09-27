@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import styles from './PaymentSuccess.module.css';  // CSS Modules import
 
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 const PaymentSuccess = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const orderId = queryParams.get('orderId');  // URL 쿼리에서 orderId 가져옴
+
   const [orderData, setOrderData] = useState(null); // 주문 데이터를 저장할 상태
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
@@ -10,8 +18,11 @@ const PaymentSuccess = () => {
   // 주문 정보를 가져오는 함수
   const fetchOrderData = async () => {
     try {
-      // 예시 API 요청 (실제 API 엔드포인트로 변경 필요)
-      const response = await axios.get('http://localhost:9000/order/details/1'); // orderId 1234
+      if (!orderId) {
+        throw new Error('주문 ID가 없습니다.');
+      }
+      // orderId로 주문 정보 요청
+      const response = await axios.get(`http://localhost:9000/order/details/${orderId}`);
       setOrderData(response.data);
       setLoading(false); // 데이터를 가져왔으므로 로딩 완료
     } catch (err) {
@@ -38,6 +49,9 @@ const PaymentSuccess = () => {
   }
 
   return (
+    <>
+    <Header />
+          <div className="container">
     <div className={styles['success-container']}>
       <div className={styles['success-header']}>
         <img src="/path/to/cart-image.png" alt="Cart Icon" className={styles['success-image']} />
@@ -88,6 +102,10 @@ const PaymentSuccess = () => {
         </div>
       </div>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 };
 

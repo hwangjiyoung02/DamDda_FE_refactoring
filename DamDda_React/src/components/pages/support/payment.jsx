@@ -4,10 +4,13 @@ import { loadTossPayments } from "@tosspayments/payment-sdk";
 import { Radio, RadioGroup, FormControlLabel, FormControl } from '@mui/material';
 import kakaopay from '../../assets/kakao.png'; // 로고 파일
 import tosspay from '../../assets/toss.png'; // 로고 파일
+import naverpay from '../../assets/naver.png'; // 로고 파일
 
 import axios from 'axios';
-import './payment.css';
-import { Header } from '../../layout/Header';
+import './Payment.css';
+import '../../styles/style.css'
+import { Header } from "../../layout/Header";
+import { Footer } from "../../layout/Footer";
 
 function Payment() {
   const navigate = useNavigate();
@@ -57,89 +60,119 @@ function Payment() {
 
   const handleDeliveryMessageChange = (e) => {
     const selectedValue = e.target.value;
-    setOrderInfo({
-      ...orderInfo,
-      request: selectedValue, // 배송 메시지를 업데이트
-    });
-
+  
+    // "직접 입력"이 선택되었을 때는 customMessage를 사용
     if (selectedValue === "직접 입력") {
-      setShowCustomMessageInput(true); // 직접 입력 필드 보이기
+      setShowCustomMessageInput(true); 
+      setOrderInfo({
+        ...orderInfo,
+        request: "직접 입력", // "직접 입력" 상태 유지
+      });
     } else {
-      setShowCustomMessageInput(false); // 직접 입력 필드 숨기기
+      // 다른 메시지를 선택할 때는 customMessage를 초기화
+      setShowCustomMessageInput(false);
+      setCustomMessage(""); // 직접 입력 창 비활성화 시 메시지 초기화
+      setOrderInfo({
+        ...orderInfo,
+        request: selectedValue, // 배송 메시지를 업데이트
+      });
     }
   };
-
+  
   const handleCustomMessageChange = (e) => {
-    setCustomMessage(e.target.value); // 사용자 정의 메시지 반영
+    const inputMessage = e.target.value;
+  
+    setCustomMessage(inputMessage); // 사용자 정의 메시지 반영
     setOrderInfo({
       ...orderInfo,
-      request: e.target.value, // 사용자 입력 메시지를 orderInfo에 반영
+      request: "직접 입력", // 사용자 정의 입력 시 request는 "직접 입력" 상태 유지
     });
   };
 
   // 주문 정보 제출 및 결제 처리
-  const handleSubmit = async () => {
-    const deliveryMessage = customMessage || orderInfo.request; // 사용자 입력 메시지가 있으면 우선 사용
+const handleSubmit = async () => {
+  const deliveryMessage = orderInfo.customMessage || orderInfo.request; // 사용자 입력 메시지가 있으면 우선 사용
 
-    const orderData = {
-      delivery: {
-        deliveryName: orderInfo.name,
-        deliveryPhoneNumber: orderInfo.phoneNumber,
-        deliveryEmail: orderInfo.email,
-        deliveryAddress: orderInfo.address,
-        deliveryDetailedAddress: orderInfo.detailAddress,
-        deliveryPostCode: orderInfo.postalCode,  // 우편번호 확인
-        deliveryMessage: deliveryMessage, // 최종 메시지
-      },
-      payment: {
-        paymentMethod: paymentMethod,
-        paymentStatus: '결제 대기중', // 초기 상태
-      },
-      supportingProject: {
-        title: orderInfo.projectTitle,  // 프로젝트명
-      },
-      supportingPackage: {
-        packageName: orderInfo.options,  // 패키지 이름
-        packagePrice: orderInfo.price * orderInfo.quantity,  // 결제 금액
-        packageCount: orderInfo.quantity, // 패키지 수량 추가
-      },
-    };
+  const orderData = {
+    delivery: {
+      deliveryName: orderInfo.name,
+      deliveryPhoneNumber: orderInfo.phoneNumber,
+      deliveryEmail: orderInfo.email,
+      deliveryAddress: orderInfo.address,
+      deliveryDetailedAddress: orderInfo.detailAddress,
+      deliveryPostCode: orderInfo.postalCode, // 우편번호 확인
+      deliveryMessage: deliveryMessage, // 최종 메시지
+    },
+    payment: {
+      paymentMethod: paymentMethod,
+      paymentStatus: '결제 대기중', // 초기 상태
+    },
+    supportingProject: {
+      title: orderInfo.projectTitle, // 프로젝트명
+    },
+    supportingPackage: {
+      packageName: orderInfo.options, // 패키지 이름
+      packagePrice: orderInfo.price * orderInfo.quantity, // 결제 금액
+      packageCount: orderInfo.quantity, // 패키지 수량 추가
+    },
+    
+  };
 
-    try {
-      // 주문 정보 생성 POST 요청
-      const response = await axios.post('http://localhost:9000/order/create', orderData);
-      console.log('Order Data:', orderData);  // 서버로 전송 전에 데이터 확인
-
-      // 결제 수단에 따른 처리
-      if (paymentMethod === 'tossPay') {
-        const tossPayments = await loadTossPayments('test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq');
-        tossPayments.requestPayment('카드', {
-          amount: orderInfo.price * orderInfo.quantity + 3000,
-          orderId: response.data.orderId, // 서버에서 받은 주문 ID 사용
-          orderName: orderInfo.projectTitle || '펀딩 결제',
-          customerName: orderInfo.name || '테스트 사용자',
-          successUrl: "http://localhost:9000/toss/success",
-          failUrl: "http://localhost:9000/toss/fail",
-        }).then(() => {
-          navigate('/TossSuccess'); // 결제 성공 시 리다이렉트
-        }).catch(function (error) {
-          console.error('결제 실패:', error);
-        });
-      } else if (paymentMethod === 'kakaoPay') {
+  try {
+    
+    // 주문 정보 생성 POST 요청 (결제 대기중 상태로 먼저 저장)
+    const response = await axios.post('http://localhost:9000/order/create', orderData);
+    console.log('주문생성 완료 :',response)
+    const createdOrderId = response.data.id; // 서버에서 반환된 주문 ID 가져오기=>  확실한가??
+    console.log('Order Data:', orderData); // 서버로 전송 전에 데이터 확인
+    console.log('orderid',createdOrderId);
+   
+    // 결제 수단에 따른 처리
+    if (paymentMethod === 'tossPay') {
+      const tossPayments = await loadTossPayments('test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq');
+      tossPayments.requestPayment('카드', {
+        amount: orderInfo.price * orderInfo.quantity + 3000,
+        orderId: createdOrderId, // 저장된 주문 ID를 사용
+        orderName: orderInfo.projectTitle || '펀딩 결제',
+        customerName: orderInfo.name || '테스트 사용자',
+        successUrl: `http://localhost:9000/toss/success?orderId=${createdOrderId}`, // 성공 시 orderId 전달
+        failUrl: `http://localhost:9000/toss/fail?orderId=${createdOrderId}`, // 실패 시 orderId 전달
+      }).then(() => {
+        console.log('결제 성공');
+      }).catch(function (error) {
+        console.error('결제 실패:', error);
+      });
+    } else if (paymentMethod === 'kakaoPay') {
         // 카카오페이 결제창 호출
         axios
-          .post("http://localhost:9000/payment/kakao/ready", { orderId: response.data.orderId })
+          .post("http://localhost:9000/order/kakao/ready", { orderId: createdOrderId })
           .then((res) => {
             window.location.href = res.data.next_redirect_pc_url; // 카카오페이 결제 페이지로 리디렉션
           })
           .catch((error) => {
             console.error("Error initiating payment:", error);
           });
-      }
-    } catch (error) {
-      console.error('There was an error creating the order:', error);
-    }
-  };
+}
+
+  } catch (error) {
+    console.error('There was an error creating the order:', error);
+  }
+};
+
+// 결제 성공 후에 호출되는 로직 (백엔드에서 처리)
+const handlePaymentSuccess = async (orderId) => {
+  try {
+    // 결제 성공 시 결제 상태를 '결제 완료'로 업데이트
+    await axios.put(`http://localhost:9000/order/${orderId}/update-status`, {
+      paymentStatus: '결제 완료',
+    });
+    console.log('Payment status updated to "결제 완료"');
+    navigate(`/order-success?orderId=${orderId}`); // 결제 성공 페이지로 이동
+  } catch (error) {
+    console.error('Error updating payment status:', error);
+  }
+};
+
 
   const sample6_execDaumPostcode = () => {
     new window.daum.Postcode({
@@ -177,17 +210,23 @@ function Payment() {
   };
 
   return (
+    <>
+    <Header />
+          <div className="container">
+
     <div className="big-container">
       <div className="container">
+      <div className="title">
+      결제 페이지</div>
         <div className="order-summary">
-          <h2>{orderInfo.projectTitle || '프로젝트 이름'}</h2>
+          <h1>{orderInfo.projectTitle || '프로젝트 이름'}</h1>
           <p>선물 구성/옵션: {orderInfo.giftSet}</p>
           <p>가격 (원): {orderInfo.price}</p>
           <p>수량: {orderInfo.quantity}</p>
         </div>
 
         <div className="form-section">
-          <h3>주문자 정보 수정</h3>
+          <h1>주문자 정보 수정</h1>
           <input
             type="text"
             name="name"
@@ -215,7 +254,7 @@ function Payment() {
         </div>
 
         <div className="form-section">
-          <h3>배송지 정보</h3>
+          <h1>배송지 정보</h1>
           <div className="address-group">
             <input
               type="text"
@@ -226,7 +265,7 @@ function Payment() {
               readOnly
               className="input"
             />
-            <button type="button" className="button" onClick={sample6_execDaumPostcode}>
+            <button type="button" className="button-1" onClick={sample6_execDaumPostcode}>
               우편번호 찾기
             </button>
           </div>
@@ -249,59 +288,67 @@ function Payment() {
             className="input"
           />
 
-          <div>
-            <h4>Delivery Message</h4>
-            <select value={orderInfo.request} onChange={handleDeliveryMessageChange}>
-              <option value="문앞에 놓아주세요">문앞에 놓아주세요</option>
-              <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
-              <option value="직접 받을 거예요">직접 받을 거예요</option>
-              <option value="직접 입력">직접 입력</option>
-            </select>
-          </div>
+        <div className="delivery-message-container">
+          <h1>배송 메시지</h1>
+          <select value={orderInfo.request} onChange={handleDeliveryMessageChange} className="delivery-select">
+            <option value="문앞에 놓아주세요">문앞에 놓아주세요</option>
+            <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
+            <option value="직접 받을 거예요">직접 받을 거예요</option>
+            <option value="직접 입력">직접 입력</option>
+          </select>
+        </div>
+
           {showCustomMessageInput && (
             <div>
               <textarea
+                className="custom-textarea" // 추가된 className
                 value={customMessage}
                 onChange={handleCustomMessageChange}
                 maxLength={100}
                 placeholder="직접 입력 (최대 100자)"
               />
-            </div>
+          </div>
+          
           )}
         </div>
 
         <div className="form-section">
-          <h3>결제 수단</h3>
-          <FormControl component="fieldset">
+          <h1>결제 수단</h1>
+          <FormControl component="fieldset" className="payment-method-form">
             <RadioGroup
+              className="payment-method-radio-group"
               aria-label="payment-method"
               name="payment-method"
               value={paymentMethod}
               onChange={handlePaymentChange}
             >
               <FormControlLabel
+                className="payment-method-option"
                 value="naverPay"
                 control={<Radio color="success" size="medium" />}
-                label={<><span>네이버 페이</span><img src="naverpay.png" alt="네이버페이" /></>}
+                label={<><span>네이버 페이</span><img src={naverpay} alt="네이버페이" className="payment-logo" /></>}
               />
               <FormControlLabel
+                className="payment-method-option"
                 value="kakaoPay"
                 control={<Radio color="success" size="medium" />}
-                label={<><span>카카오페이</span><img src={kakaopay} alt="카카오페이" /></>}
+                label={<><span>카카오페이</span><img src={kakaopay} alt="카카오페이" className="payment-logo" /></>}
               />
               <FormControlLabel
+                className="payment-method-option"
                 value="tossPay"
                 control={<Radio color="success" size="medium" />}
-                label={<><span>토스 페이</span><img src={tosspay} alt="토스페이" /></>}
+                label={<><span>토스 페이</span><img src={tosspay} alt="토스페이" className="payment-logo" /></>}
               />
             </RadioGroup>
           </FormControl>
+
         </div>
       </div>
 
       <div className="small-container">
         <div className="payment-summary">
-          <h3>최종 펀딩 금액</h3>
+          <h1>최종 펀딩 금액</h1>
           <p>상품 금액: {orderInfo.price} 원</p>
           <p>배송비: 3000 원</p>
           <p>최종 금액: {orderInfo.price * orderInfo.quantity + 3000} 원</p>
@@ -320,11 +367,16 @@ function Payment() {
               개인정보 제 3자 제공 동의
             </label>
           </div>
+          <button onClick={handleSubmit} className="button-2">간편 결제 하기</button>
+
         </div>
 
-        <button onClick={handleSubmit} className="button">간편 결제 하기</button>
       </div>
     </div>
+    </div>
+    <Footer />
+    </>
+
   );
 }
 

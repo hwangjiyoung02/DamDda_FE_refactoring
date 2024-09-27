@@ -23,9 +23,6 @@ function Main() {
       <Category />
       <SearchBar />
       <ServiceCards></ServiceCards>
-
-
-
       
       <ProductRecommendations></ProductRecommendations>
       <ProductRecommendations></ProductRecommendations>
