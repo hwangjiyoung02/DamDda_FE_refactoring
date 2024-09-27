@@ -6,7 +6,7 @@ import kakaopay from '../../assets/kakao.png'; // 로고 파일
 import tosspay from '../../assets/toss.png'; // 로고 파일
 
 import axios from 'axios';
-import './Payment.css';
+import './payment.css';
 import { Header } from '../../layout/Header';
 
 function Payment() {

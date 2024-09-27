@@ -201,7 +201,13 @@ export const ProductRecommendations = () => {
 
           <Grid container justifyContent="center" alignItems="center" spacing={2} sx={{ flexGrow: 1 }}>
             {products.map((product) => (
-              <Grid item key={product.id} xs={12} sm={6} md={2.4} display="flex" justifyContent="center">
+              <Grid item key={product.id} 
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              xl={2.4}
+              display="flex" justifyContent="center">
                 <ProductCard product={product} />
               </Grid>
             ))}
