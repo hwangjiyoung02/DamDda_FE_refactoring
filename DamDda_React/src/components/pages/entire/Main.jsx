@@ -1,5 +1,5 @@
 // src/components/MainContent.jsx
-import React from 'react';
+import {React, useState} from 'react';
 import { Footer } from '../../layout/Footer';
 // import NewSection from './NewSection'; // NewsSection 대신 NewSection으로 변경
 import { Category } from '../../layout/Category';
@@ -17,33 +17,18 @@ import {ProductRecommendations} from './Product';
 import "./MainBanner.css";
 import "../../styles/style.css"
 function Main() {
+  const [cartegory, setCartegory] = useState('전체');
+  const [search, setSearch] = useState("");
+  
   return (
     <>
-      <Header />
-      {/* <CarouselComponent /> */}
-      {/* Header와 Category 사이에 여백 추가 */}
+      <Header setSearch={setSearch}/>
       <Box sx={{ marginTop: 4 }}> {/* marginTop으로 여백 조절 */}
-      <Category />
-      </Box>
-      {/* <SearchBar /> */}
-      {/* <ServiceCards></ServiceCards> */}
-      
-      <ProductRecommendations></ProductRecommendations>
-
-      {/* <div className="banner-container2">
-            <img
-              src={Banner2}
-              alt="Banner"
-              className="banner-image2"
-            />
-          </div> */}
-      {/* <NewSection /> */}
-
-      {/* <CollaborationSection></CollaborationSection> */}
-     
-      
+      <Category setCartegory={setCartegory}/>
+      </Box>      
+      <ProductRecommendations cartegory={cartegory} search={search}></ProductRecommendations>
+ 
       <Footer />
-      {/* <Payment /> */}
     </>
   );
 }
