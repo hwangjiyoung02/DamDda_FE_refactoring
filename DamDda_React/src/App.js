@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 /////////////////////////////지영////////////////////////////////////
 import Home from './components/pages/mainpage/Main'; 
-import Payment from './components/pages/support/Payment';
+import Payment from './components/pages/support/payment';
 import OrderPage from './components/pages/support/OrderPage';
 import PaymentSuccess from "./components/pages/support/PaymentSuccess";
 import MyOrders from './components/pages/support/MyOrders';
@@ -24,6 +24,10 @@ import MyPage from './components/pages/mypage/Mypage';
 import styles from './components/styles/style.css'
 import ProjectDetail from './components/pages/detail/ProjectDetail';
 import ProjectDetail2 from './components/pages/detail/ProjectDetail2';
+
+/////////////////////////////주현////////////////////////////////////
+import Entire from './components/pages/entire/Main';
+
 function App() {
  
 
@@ -32,6 +36,7 @@ function App() {
       <Routes>
       {/* /////////////////////////////지영//////////////////////////////////// */}
         <Route path="/" element={<Home />} />  
+        <Route path="/entire" element={<Entire />} />  
         <Route path="/order" element={<OrderPage />} />
         <Route path="/user/myorders/:userId" element={<MyOrders />} />
         <Route path="/yourpage" element={<YourPage />} />
