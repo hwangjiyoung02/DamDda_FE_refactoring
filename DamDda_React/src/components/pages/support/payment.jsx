@@ -348,11 +348,12 @@ const handlePaymentSuccess = async (orderId) => {
 
       <div className="small-container">
         <div className="payment-summary">
-          <h1>최종 펀딩 금액</h1>
-          <p>상품 금액: {orderInfo.price} 원</p>
-          <p>배송비: 3000 원</p>
-          <p>최종 금액: {orderInfo.price * orderInfo.quantity + 3000} 원</p>
-
+          <div className="payment-summary-title">최종 펀딩 금액</div>
+          <div className='payment-summary-amount'>
+              <p>상품 금액: {orderInfo.price} 원</p>
+              <p>배송비: 3000 원</p>
+              <p>최종 금액: {orderInfo.price * orderInfo.quantity + 3000} 원</p>
+          </div>
           <div className="checkbox-group">
             <label>
               <input type="checkbox" />

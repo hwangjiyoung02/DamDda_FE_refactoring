@@ -9,6 +9,7 @@
 
 .success-header {
   margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .success-image {
@@ -38,20 +39,31 @@ p {
 .my-orders-btn, .other-projects-btn {
   padding: 10px 20px;
   font-size: 1em;
-  background-color: #333;
+  background-color: #7a82ed;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-weight: 600;
+
 }
 
 .my-orders-btn:hover, .other-projects-btn:hover {
-  background-color: #555;
+  background-color: #33C2E2;
 }
 
 .order-summary-section, .details-section {
   text-align: left;
   margin-bottom: 30px;
+  margin-top: 90px;
+
+padding: auto;}
+.order-title{
+  font-size: 23px; /* 글자 크기 */
+  color: #333; /* 글자 색상 */
+  font-weight: bold; /* 글자 굵기 */
+  letter-spacing: 1px; /* 글자 간격 */
+  border-bottom: 2px solid #ccc; /* 하단에 테두리 추가 */
 }
 
 table {
@@ -77,10 +89,25 @@ table th {
 .shipping-info, .payment-info {
   width: 48%;
   background-color: #f9f9f9;
-  padding: 20px;
   border-radius: 8px;
 }
 
 h3 {
   margin-bottom: 10px;
+}
+
+.success-image {
+  max-width: 170px; /* Sets a maximum width */
+  max-height: 170px; /* Sets a maximum height */
+  width: auto; /* Keeps the aspect ratio */
+  height: auto; /* Keeps the aspect ratio */
+}
+
+.detail-section-content{
+  padding-top: 20px;
+  padding-left: 5px;
+}
+
+.detail-section-content p {
+  font-size: 16px;
 }
