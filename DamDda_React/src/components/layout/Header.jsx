@@ -21,7 +21,7 @@ import { SearchBar } from './SearchBar';
 
 const pages = ['카테고리'];
 
-export function Header({setSearch}) {
+export function Header({search, setSearch}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [showProfileCard, setShowProfileCard] = useState(false); // 프로필 카드 표시 여부
@@ -129,7 +129,7 @@ export function Header({setSearch}) {
 
           {/* 검색 바 */}
           <Box width={300}>          
-            <SearchBar setSearch={setSearch}></SearchBar>
+            <SearchBar search={search} setSearch={setSearch}></SearchBar>
           </Box>
 
           {/* 프로젝트 등록 버튼 및 프로젝트 목록 표시 */}

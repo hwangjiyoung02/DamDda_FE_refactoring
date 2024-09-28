@@ -4,6 +4,7 @@ import { Footer } from '../../layout/Footer';
 // import NewSection from './NewSection'; // NewsSection 대신 NewSection으로 변경
 import { Category } from '../../layout/Category';
 import { Header } from '../../layout/Header';
+import { useLocation } from 'react-router-dom';
 // import { CarouselComponent } from './Carousel';
 // import {CollaborationSection} from './Collaboration'
 // import {ServiceCards} from './ServiceCards'
@@ -17,12 +18,15 @@ import {ProductRecommendations} from './Product';
 import "./MainBanner.css";
 import "../../styles/style.css"
 function Main() {
-  const [cartegory, setCartegory] = useState('전체');
-  const [search, setSearch] = useState("");
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const [cartegory, setCartegory] = useState(query.get('category') || '전체');
+  // const [cartegory, setCartegory] = useState('전체');
+  const [search, setSearch] = useState(query.get('search') || "");
   
   return (
     <>
-      <Header setSearch={setSearch}/>
+      <Header search={search} setSearch={setSearch}/>
       <Box sx={{ marginTop: 4 }}> {/* marginTop으로 여백 조절 */}
       <Category setCartegory={setCartegory}/>
       </Box>      

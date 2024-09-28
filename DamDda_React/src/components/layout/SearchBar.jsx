@@ -2,8 +2,8 @@ import {React, useState} from 'react';
 import { TextField, InputAdornment, Box,Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-export const SearchBar = ({setSearch}) => {
-  const [searchText, setSearchText] = useState('');
+export const SearchBar = ({search, setSearch}) => {
+  const [searchText, setSearchText] = useState(search || '');
   const handleSearchChange = (event) => {
     setSearchText(event.target.value); // 상태를 업데이트
   };
