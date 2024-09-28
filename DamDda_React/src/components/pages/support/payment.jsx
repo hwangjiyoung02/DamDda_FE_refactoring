@@ -6,6 +6,7 @@ import kakaopay from '../../assets/kakao.png'; // 로고 파일
 import tosspay from '../../assets/toss.png'; // 로고 파일
 import naverpay from '../../assets/naver.png'; // 로고 파일
 
+//완료//
 import axios from 'axios';
 import './Payment.css';
 import '../../styles/style.css'
@@ -141,6 +142,7 @@ const handleSubmit = async () => {
         console.log('결제 성공');
       }).catch(function (error) {
         console.error('결제 실패:', error);
+
       });
     } else if (paymentMethod === 'kakaoPay') {
         // 카카오페이 결제창 호출
