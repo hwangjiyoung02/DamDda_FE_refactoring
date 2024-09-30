@@ -8,7 +8,9 @@ export default function SupportedProjects() {
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const[order,setOrder]=useState(true);
   const memberId=1;
+
 
   // 데이터 가져오기
   const fetchOrders = async () => {
@@ -29,6 +31,10 @@ export default function SupportedProjects() {
   useEffect(() => {
     fetchOrders();
   }, 2);
+
+  
+
+  
   // 백엔드에서 후원한 프로젝트 목록을 가져오는 함수 (주석 처리)
   /*
   const fetchSupportedProjects = async () => {

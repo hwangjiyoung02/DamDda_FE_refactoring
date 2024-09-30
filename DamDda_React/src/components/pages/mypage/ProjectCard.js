@@ -189,7 +189,7 @@ export default function ProjectCard({ project }) {
         <Box sx={{ flex: "0 0 150px", marginRight: "5px" }}>
           <AspectRatio ratio="1" sx={{ width: "100%", height: "auto" }}>
             <img
-              src={project.supportingProject.project.thumbnailUrl}
+              // src={project.supportingProject.project.thumbnailUrl}
               alt="프로젝트 썸네일"
               style={{ objectFit: "cover", borderRadius: "8px" }}
             />
@@ -227,7 +227,7 @@ export default function ProjectCard({ project }) {
               level="body2"
               sx={{ mb: 1, fontSize: "0.875rem", color: "text.secondary" }}
             >
-              후원번호: {project.supportingProject.supportingProjectId}
+              후원번호: {project.delivery.deliveryId}
             </Typography>
             <Typography
               level="body2"
