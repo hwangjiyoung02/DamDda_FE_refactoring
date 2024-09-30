@@ -204,10 +204,10 @@ export default function ProjectCard({ project }) {
             [{project.supportingProject.project.title}]
           </Typography>
           <Typography level="body2" sx={{ mb: 1, color: "text.secondary" }}>
-            선물 구성: {project.supportingPackage.packeName}
+            선물 구성: {project.supportingPackage.packageName}
           </Typography>
           <Typography level="body2" sx={{ mb: 1, color: "text.secondary" }}>
-            후원 금액: {parseInt(project.supportingPackage.paymentPrice).toLocaleString()}원
+            후원 금액: {parseInt(project.supportingPackage.packagePrice).toLocaleString()}원
           </Typography>
         </CardContent>
 

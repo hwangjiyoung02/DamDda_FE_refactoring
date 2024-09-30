@@ -3,17 +3,17 @@ import ProjectCard from "./ProjectCard"; // ProjectCard 컴포넌트
 import "./css/SupportedProjects.css"; // CSS 파일 경로 수정
 import axios from "axios";
 
-export default function SupportedProjects({ memberId }) {
+export default function SupportedProjects() {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const memberId=1;
 
   // 데이터 가져오기
   const fetchOrders = async () => {
     try {
-      // const response = await axios.get(`http://localhost:9000/orders/supportingprojects/${userId}`);
-      const response = await axios.get(`http://localhost:9000/orders/supportingprojects/2`);
+      const response = await axios.get(`http://localhost:9000/order/supportingprojects?userId=${memberId}`);
       setProjects(response.data);
       setLoading(false);
     } catch (err) {

@@ -35,8 +35,13 @@ function Payment() {
   const [paymentMethod, setPaymentMethod] = useState(''); // 결제 수단 상태
   const [showCustomMessageInput, setShowCustomMessageInput] = useState(false); // 배송 메시지 입력 필드 상태
   const [customMessage, setCustomMessage] = useState(''); // 사용자 입력 배송 메시지
+  const userId=1;
+  const projectId=2;
+
   useEffect(() => {
+    
     console.log("OrderInfo updated: ", orderInfo);
+
   }, [orderInfo]);
   
   // Dynamically load Daum Postcode script when the component mounts
@@ -84,9 +89,9 @@ function Payment() {
   };
   
   const handleCustomMessageChange = (e) => {
-    const inputMessage = e.target.value;
+    const selectedValue = e.target.value;
   
-    setCustomMessage(inputMessage); // 사용자 정의 메시지 반영
+    setCustomMessage(selectedValue); // 사용자 정의 메시지 반영
     setOrderInfo({
       ...orderInfo,
       request: "직접 입력", // 사용자 정의 입력 시 request는 "직접 입력" 상태 유지
@@ -95,7 +100,7 @@ function Payment() {
 
   // 주문 정보 제출 및 결제 처리
 const handleSubmit = async () => {
-  const deliveryMessage = customMessage || orderInfo.request; // 사용자 입력 메시지가 있으면 우선 사용
+  const deliveryMessage = orderInfo.customMessage || orderInfo.request; // 사용자 입력 메시지가 있으면 우선 사용
 
   const orderData = {
     delivery: {
@@ -112,8 +117,13 @@ const handleSubmit = async () => {
       paymentStatus: '결제 대기중', // 초기 상태
     },
     supportingProject: {
-      userId: 1,  // 실제로 이 값이 있는지 확인
-      projectId: 2,  // 실제로 프로젝트 ID가 있는지 확인
+      user: {
+        id: userId  // 사용자 ID
+      },
+      project: {
+        id: projectId  // 프로젝트 ID
+      },
+      supportedAt: new Date() // 후원 날짜
   },
     supportingPackage: {
       packageName: orderInfo.giftSet, // 패키지 이름

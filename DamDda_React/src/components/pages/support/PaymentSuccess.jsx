@@ -80,19 +80,20 @@ const PaymentSuccess = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderData.supportingPackage ? (
-                  <tr>
-                    <td>{orderData.supportingPackage.packeName}</td>
-                    <td>{new Date(orderData.supportingProject.supportedAt).toLocaleDateString()}</td>
-                    <td>{orderData.supportingPackage.packageCount}</td>
-                    <td>{parseInt(orderData.supportingPackage.paymentPrice).toLocaleString()}원</td>
-                  </tr>
-                ) : (
-                  <tr>
-                    <td colSpan="4">주문 상품이 없습니다.</td>
-                  </tr>
-                )}
-              </tbody>
+                  {orderData.supportingPackage && orderData.supportingProject ? (
+                    <tr>
+                      <td>{orderData.supportingPackage.packageName}</td>
+                      <td>{new Date(orderData.supportingProject.supportedAt).toLocaleDateString()}</td>
+                      <td>{orderData.supportingPackage.packageCount}</td>
+                      <td>{parseInt(orderData.supportingPackage.packagePrice).toLocaleString()}원</td> {/* packagePrice로 수정 */}
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td colSpan="4">주문 상품이 없습니다.</td>
+                    </tr>
+                  )}
+                </tbody>
+
             </table>
           </div>
 
@@ -110,8 +111,8 @@ const PaymentSuccess = () => {
               <div className={styles['order-title']}>결제 정보</div>
               <div className={styles['detail-section-content']}>
                 <p>결제 수단: {orderData.payment.paymentMethod}</p>
-                <p>결제 금액: {parseInt(orderData.supportingPackage.paymentPrice).toLocaleString()}원</p>
-              </div>
+                <p>결제 금액: {parseInt(orderData.supportingPackage.packagePrice).toLocaleString()}원</p>
+                </div>
             </div>
           </div>
         </div>
