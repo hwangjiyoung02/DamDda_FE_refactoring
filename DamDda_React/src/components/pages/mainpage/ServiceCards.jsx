@@ -30,7 +30,7 @@ const services = [
 export const ServiceCards = () => {
   return (
 
-    <Box sx={{ width: '100%', padding: '40px 0', backgroundColor: '#f8f8f8', display: 'flex',justifyContent: 'center' ,margin: 'auto 0'  }}>
+    <Box sx={{ width: '80%', padding: '40px 0', backgroundColor: '#f8f8f8', display: 'flex',justifyContent: 'center' ,margin: '0 auto'  }}>
       <Grid container justifyContent="center" spacing={5} sx={{ maxWidth: '1400px',textAlign: 'center'}}>
         {services.map((service, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>

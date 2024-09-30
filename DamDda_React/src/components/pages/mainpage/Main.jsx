@@ -8,11 +8,12 @@ import { Header } from '../../layout/Header';
 import { CarouselComponent } from './Carousel';
 import {CollaborationSection} from './Collaboration'
 import {ServiceCards} from './ServiceCards'
+import { Box } from "@mui/material";
 
 // import { Payment } from '../support/payment';
 // import Banner1 from '../../assets/banner-1.png'
 import Banner2 from '../../assets/Banner2.png'
-import {ProductRecommendations} from '../../layout/Product';
+import {ProductRecommendations} from './Product';
 import { SearchBar } from '../../layout/SearchBar';
 import "./MainBanner.css";
 import "../../styles/style.css"
@@ -54,16 +55,28 @@ function Main() {
   return (
     <>
       <Header search={search} setSearch={setSearch}/>
+
+      
+    <Box
+        sx={{
+          margin: '0 auto',
+          width: "80%",
+          maxWidth: "1750px",
+          minWidth: '600px',
+        }}
+      >
+      
       <CarouselComponent />
       <Category setCartegory={setCartegory}/>
       <SearchBar search={search} setSearch={setSearch}/>
+
       <ServiceCards></ServiceCards>
 
 
 
       
-      <ProductRecommendations></ProductRecommendations>
-      <ProductRecommendations></ProductRecommendations>
+      <ProductRecommendations sortCondition={"likeCnt"} title={"인기 프로젝트"} subTitle={"좋아요가 가장 많은 프로젝트"}></ProductRecommendations>
+      <ProductRecommendations sortCondition={"endDate"} title={"마감 임박 프로젝트"} subTitle={"마감임박! 마지막 기회 놓치지 말아요!"}></ProductRecommendations>
 
       <div className="banner-container2">
             <img
@@ -72,17 +85,19 @@ function Main() {
               className="banner-image2"
             />
           </div>
-      <ProductRecommendations></ProductRecommendations>
-      <ProductRecommendations></ProductRecommendations>
+      <ProductRecommendations sortCondition={"all"} title={"사용자 추천 프로젝트"} subTitle={"나에게 딱 맞는 프로젝트."}></ProductRecommendations>
+      <ProductRecommendations sortCondition={"viewCnt"} title={"최다 조회 프로젝트"} subTitle={"많은 사람들이 구경한 프로젝트"}></ProductRecommendations>
 
-      <ProductRecommendations></ProductRecommendations>
+      <ProductRecommendations sortCondition={"targetFunding"} title={"최다 후원 프로젝트"} subTitle={"많은 사람들의 이유있는 후원! 후원금이 가장 많은 프로젝트!"}></ProductRecommendations>
       <NewSection />
 
       <CollaborationSection></CollaborationSection>
      
-      
       <Footer />
       {/* <Payment /> */}
+      </Box>
+      
+
     </>
   );
 }

@@ -21,7 +21,7 @@ import { useLocation } from 'react-router-dom';
 
 
 // Individual product card component
-export const ProductCard = ({ product, handleLike }) => {
+export const ProductCard1 = ({ product, handleLike }) => {
   
   // 달성률 계산 (fundsReceive / targetFunding * 100)
   const achievementRate = Math.min(
@@ -48,11 +48,12 @@ export const ProductCard = ({ product, handleLike }) => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           padding: 2,
           position: "relative",
-          width: "270px", // 고정된 가로 크기
-          minWidth: "280px", // 최소 크기 설정
-          maxWidth: "290px", // 최대 크기 설정
+          width: "300px", // 고정된 가로 크기
+          // minWidth: "300px", // 최소 크기 설정
+          // maxWidth: "290px", // 최대 크기 설정
           transform: "scale(0.95)", // 전체 요소의 크기를 0.9배로 축소
           transformOrigin: "top left", // 스케일 기준점 설정
+          height: "480px",
         }}
       >
         {/* 타이틀과 서브타이틀 */}
@@ -120,7 +121,7 @@ export const ProductCard = ({ product, handleLike }) => {
           <LinearProgress
             variant="determinate"
             value={achievementRate}
-            sx={{ height: 9, bordserRadius: "5px", mt: 1, mb: 2 }}
+            sx={{ height: 9, borderRadius: "5px", mt: 1, mb: 2 }}
           />
 
           {/* Host and Deadline */}
@@ -146,6 +147,181 @@ export const ProductCard = ({ product, handleLike }) => {
             <Typography
               variant="body2"
               sx={{ fontWeight: "bold", fontSize: "0.75rem" }}
+            >
+              진행자: {product.nickName}
+            </Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    </>
+  );
+};
+
+
+// Individual product card component
+export const ProductCard = ({ product, handleLike }) => {
+
+  const formattedTargetFunding = new Intl.NumberFormat().format(product.targetFunding);
+
+  // 달성률 계산 (fundsReceive / targetFunding * 100)
+  const achievementRate = Math.min(
+    (product.fundsReceive / product.targetFunding) * 100,
+    100
+  );
+  
+  // 현재 시간
+  const currentTime = new Date();
+  // product.endDate를 Date 객체로 변환
+  const endDate = new Date(product.endDate);
+  // 남은 시간 계산 (밀리초 기준)
+  const timeDifference = endDate - currentTime;
+
+  // 밀리초를 일(day) 단위로 변환
+  const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  return (
+    <>
+      <Card
+        sx={{
+          borderRadius: "15px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          padding: 2,
+          margin: '0px 10px',
+          // position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "visible", // 숨겨진 요소 방지
+
+          minWidth: "300px",
+          width: "300px", // 고정된 가로 크기
+          height: "480px",
+          // minWidth: "280px", // 최소 크기 설정
+          // maxWidth: "290px", // 최대 크기 설정
+          transform: "scale(0.95)", // 전체 요소의 크기를 0.9배로 축소
+          transformOrigin: "top left", // 스케일 기준점 설정
+        }}
+      >
+        {/* 타이틀과 서브타이틀 */}
+        <Box
+          sx={{
+            position: "relative",
+            // margin: "3px",
+          }}
+        >
+          <CardMedia
+            component="img"
+            image={`http://localhost:9000/${product.thumbnailUrl}`} // 이미지 URL을 서버에서 호출
+            // image={product.image}
+            sx={{ height: "187.5px", borderRadius: "5px", width: "100%" }} // 이미지 높이 증가
+          />
+          <IconButton
+            sx={{
+              position: "absolute",
+              top: 7,
+              right: 7,
+              color: product.liked ? "red" : "gray",
+            }}
+            onClick={() => handleLike(product)} // 클릭 시 좋아요 요청
+          >
+            <FavoriteIcon />
+          </IconButton>
+        </Box>
+
+        <CardContent
+          sx={{
+            height: "262.5px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "visible", // 숨겨진 요소 방지
+            justifyContent: "space-around",
+            alignItems: "flex-start",
+          }}
+        >
+          {/* Title */}
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ fontWeight: "bold", fontSize: "1.1rem", mb: 1 }}
+          >
+            {product.title}
+          </Typography>
+
+          {/* Description */}
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontSize: "0.85rem", mb: 1 }}
+          >
+            {product.description}
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",  // 부모 Box가 전체 너비를 가지도록 설정
+            }}
+          >
+            <Typography
+              variant="body2"
+              sx={{ fontWeight: "bold", fontSize: "0.8rem" }}
+            >
+              달성률 {achievementRate.toFixed(2)}%
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ fontWeight: "bold", fontSize: "0.8rem" }}
+            >
+              {formattedTargetFunding}원
+              {/* {product.targetFunding} */}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              width: "100%", // 부모 컨테이너 너비를 명시적으로 설정
+              height: "auto", // 부모 컨테이너 높이가 자동으로 자식 높이를 수용
+              display: "block", // 부모 컨테이너의 display 속성 확인
+              overflow: "visible", // 자식 요소를 숨기지 않도록 설정
+            }}
+          >
+            {/* Progress bar */}
+            <LinearProgress
+              variant="determinate"
+              value={15}
+              sx={{ height: 9, borderRadius: "5px", mt: 1, mb: 2 }}
+            />
+          </Box>
+
+          {/* Host and Deadline */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",  // 부모 Box가 전체 너비를 가지도록 설정
+            }}
+          >
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              sx={{
+                backgroundColor: "#5a87f7",
+                borderRadius: "12px",
+                fontSize: "0.75rem",
+              }}
+            >
+              마감임박 D - {daysLeft}
+            </Button>
+
+            <Typography
+              variant="body2"
+              sx={{ fontWeight: "bold", fontSize: "0.8rem" }}
             >
               진행자: {product.nickName}
             </Typography>

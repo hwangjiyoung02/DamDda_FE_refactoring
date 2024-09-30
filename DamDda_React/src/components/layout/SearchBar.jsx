@@ -30,7 +30,9 @@ export const SearchBar = ({search, setSearch}) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 5,
+        margin: '50px auto',
+        width: "100%",
+        maxWidth: 500,
         border: null,
       }}
     >
@@ -39,7 +41,7 @@ export const SearchBar = ({search, setSearch}) => {
         value={searchText}
         onChange={handleSearchChange}
         onKeyDown={handleKeyDown} // 엔터 키 입력 시 검색 실행
-        fullWidth
+        // fullWidth
         InputProps={{
           endAdornment: (
               <InputAdornment position="end" sx={{ mt: '-8px', mr:'8px' }}>
@@ -54,12 +56,14 @@ export const SearchBar = ({search, setSearch}) => {
             padding: '0 12px', // Adjust padding to center content
             height: '100%', // Ensure the height matches the container
             display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
             alignItems: 'center', // Vertically center the content
-            marginTop: '5px',
+            //marginTop: '5px',
           },
         }}
         sx={{
-          width: 500,
+          width: "100%",
           border: '2px solid #7a82ed', // Teal border color
           borderRadius: '50px', // Full rounded corners
           backgroundColor: '#fff', // White background

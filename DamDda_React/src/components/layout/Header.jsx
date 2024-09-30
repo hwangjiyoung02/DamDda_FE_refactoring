@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'; // 로고 파일
 import { SearchBar } from './SearchBar';
 
-const pages = ['카테고리'];
+// const pages = ['카테고리'];
 
 export function Header({search, setSearch}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -56,7 +56,7 @@ export function Header({search, setSearch}) {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
+    <AppBar position="static" sx={{ bgcolor: 'white', color: 'black'}}>
       <Container
         maxWidth='1520px' // maxWidth를 false로 설정하여 100%가 기본값이 되지 않도록 설정
         sx={{
@@ -64,7 +64,7 @@ export function Header({search, setSearch}) {
           margin: '0 auto', // 네브바를 중앙에 배치
         }}
       >
-        <Toolbar disableGutters>
+        <Toolbar disableGutter sx={{display:'flex', justifyContent:'space-between', margin: '0px auto'}}>
           <Typography
             variant="h6"
             noWrap
@@ -108,7 +108,7 @@ export function Header({search, setSearch}) {
             </Menu>
           </Box>
          
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: 2, mt: 2, alignItems: 'center' }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: 2, mt: 2, alignItems: 'center' }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -125,12 +125,14 @@ export function Header({search, setSearch}) {
                 {page}
               </Button>
             ))}
-          </Box>
+          </Box> */}
 
           {/* 검색 바 */}
-          <Box width={300}>          
+          <Box sx={{ width: { xs: '200px', sm: '250px', md: '350px', lg: '500px' } }}>          
             <SearchBar search={search} setSearch={setSearch}></SearchBar>
           </Box>
+
+<Box sx={{ display: 'flex', flexGrow: 0, mr: 2, position: 'relative' }}> 
 
           {/* 프로젝트 등록 버튼 및 프로젝트 목록 표시 */}
           <Box sx={{ flexGrow: 0, mr: 2, position: 'relative' }}>
@@ -301,6 +303,8 @@ export function Header({search, setSearch}) {
               </Box>
             )}
           </Box>
+          
+</Box>
         </Toolbar>
       </Container>
     </AppBar>
