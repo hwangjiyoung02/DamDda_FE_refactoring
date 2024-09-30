@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
@@ -6,44 +6,50 @@ import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import StatusButton from "./StatusButton"; // StatusButton 컴포넌트 import
 import PaymentDeliveryInfo from "./PaymentDeliveryInfo"; // 결제/배송 정보 컴포넌트
+import axios from 'axios'; // axios import 추가
 
 export default function ProjectCard({ project }) {
   const [showDetails, setShowDetails] = useState(false); // 결제/배송 정보 표시 상태
   const [paymentData, setPaymentData] = useState(null); // 결제 정보 데이터 상태
+  
+  const [orderData, setOrderData] = useState([]); // 주문 데이터를 저장할 상태
+  const [loading, setLoading] = useState(true); // 로딩 상태 관리
+  const [error, setError] = useState(null); // 에러 상태 관리
+
+  // 주문 정보 가져오기
+  const fetchOrderData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:9000/order/supportingprojects/3`);
+      setOrderData(response.data);
+      setLoading(false); // 데이터를 가져왔으므로 로딩 완료
+    } catch (err) {
+      setError(err.message);
+      setLoading(false); // 에러가 발생해도 로딩 완료
+    }
+  };
 
   // 결제/배송 정보 토글
-  const toggleDetails = async () => {
+  const toggleDetails = () => {
     if (!showDetails && !paymentData) {
-      // 백엔드에서 데이터를 불러오는 부분 (백엔드 구현 시 주석 해제)
-      /*
-      try {
-        const response = await axios.get(`/orders/pay/${project.orderId}`);
-        setPaymentData(response.data);
-      } catch (error) {
-        console.error('결제 데이터를 불러오는 중 오류 발생:', error);
-      }
-*/
-
-      // Mock 데이터 (백엔드가 준비되지 않았을 때 사용)
-      const mockPaymentData = {
-        delivery: {
-          name: "김철수",
-          phoneNumber: "010-1234-5678",
-          address: "서울시 종로구 oo동",
-          message: "배송 전 연락 부탁드립니다.",
-        },
-        payment: {
-          paymentMethod: "토스페이",
-          paymentStatus: "결제 완료",
-        },
-        projectPackage: {
-          packagePrice: 50000,
-        },
-      };
-      setPaymentData(mockPaymentData);
+      // 데이터가 없는 상태에서만 데이터를 가져옴
+      fetchOrderData();
     }
-    setShowDetails(!showDetails); // 상태 토글
+    setShowDetails(!showDetails); // 결제/배송 정보 표시 상태 토글
   };
+
+  useEffect(() => {
+    fetchOrderData(); // 컴포넌트가 마운트될 때 주문 정보 가져오기
+  }, []);
+
+  // 로딩 중인 경우 처리
+  if (loading) {
+    return <p>로딩 중...</p>;
+  }
+
+  // 에러 발생 시 처리
+  if (error) {
+    return <p>에러 발생: {error}</p>;
+  }
 
   return (
     <>
@@ -140,9 +146,7 @@ export default function ProjectCard({ project }) {
         </Box>
       </Card>
       {/* 결제/배송 정보 표시 */}
-      {showDetails && <PaymentDeliveryInfo project={paymentData} />}{" "}
-      {/*가짜데이터 보여주기*/}
-      {/* {showDetails && <PaymentDeliveryInfo project={project} />} 진짜데이터 보여주기 */}
+      {showDetails && <PaymentDeliveryInfo project={orderData} />} {/* 실제 데이터를 보여주기 */}
     </>
   );
 }
