@@ -35,7 +35,10 @@ function Payment() {
   const [paymentMethod, setPaymentMethod] = useState(''); // 결제 수단 상태
   const [showCustomMessageInput, setShowCustomMessageInput] = useState(false); // 배송 메시지 입력 필드 상태
   const [customMessage, setCustomMessage] = useState(''); // 사용자 입력 배송 메시지
-
+  useEffect(() => {
+    console.log("OrderInfo updated: ", orderInfo);
+  }, [orderInfo]);
+  
   // Dynamically load Daum Postcode script when the component mounts
   useEffect(() => {
     const script = document.createElement('script');
@@ -67,7 +70,7 @@ function Payment() {
       setShowCustomMessageInput(true); 
       setOrderInfo({
         ...orderInfo,
-        request: "직접 입력", // "직접 입력" 상태 유지
+        request: "", // "직접 입력" 상태 유지
       });
     } else {
       // 다른 메시지를 선택할 때는 customMessage를 초기화
@@ -92,7 +95,7 @@ function Payment() {
 
   // 주문 정보 제출 및 결제 처리
 const handleSubmit = async () => {
-  const deliveryMessage = orderInfo.customMessage || orderInfo.request; // 사용자 입력 메시지가 있으면 우선 사용
+  const deliveryMessage = customMessage || orderInfo.request; // 사용자 입력 메시지가 있으면 우선 사용
 
   const orderData = {
     delivery: {
@@ -101,7 +104,7 @@ const handleSubmit = async () => {
       deliveryEmail: orderInfo.email,
       deliveryAddress: orderInfo.address,
       deliveryDetailedAddress: orderInfo.detailAddress,
-      deliveryPostCode: orderInfo.postalCode, // 우편번호 확인
+      deliveryPostCode: orderInfo.postalCode,  // 우편번호를 문자열로 변환
       deliveryMessage: deliveryMessage, // 최종 메시지
     },
     payment: {
@@ -109,10 +112,11 @@ const handleSubmit = async () => {
       paymentStatus: '결제 대기중', // 초기 상태
     },
     supportingProject: {
-      title: orderInfo.projectTitle, // 프로젝트명
-    },
+      userId: 1,  // 실제로 이 값이 있는지 확인
+      projectId: 2,  // 실제로 프로젝트 ID가 있는지 확인
+  },
     supportingPackage: {
-      packageName: orderInfo.options, // 패키지 이름
+      packageName: orderInfo.giftSet, // 패키지 이름
       packagePrice: orderInfo.price * orderInfo.quantity, // 결제 금액
       packageCount: orderInfo.quantity, // 패키지 수량 추가
     },
@@ -122,11 +126,13 @@ const handleSubmit = async () => {
   try {
     
     // 주문 정보 생성 POST 요청 (결제 대기중 상태로 먼저 저장)
+    console.log('Order Data:', orderData); // 서버로 전송 전에 데이터 확인
     const response = await axios.post('http://localhost:9000/order/create', orderData);
     console.log('주문생성 완료 :',response)
-    const createdOrderId = response.data.id; // 서버에서 반환된 주문 ID 가져오기=>  확실한가??
-    console.log('Order Data:', orderData); // 서버로 전송 전에 데이터 확인
-    console.log('orderid',createdOrderId);
+    
+    // 서버에서 반환된 orderId 가져오기
+    const createdOrderId = response.data; // response.data는 orderId 값
+    console.log('주문 ID:', createdOrderId);
    
     // 결제 수단에 따른 처리
     if (paymentMethod === 'tossPay') {
@@ -147,7 +153,7 @@ const handleSubmit = async () => {
     } else if (paymentMethod === 'kakaoPay') {
         // 카카오페이 결제창 호출
         axios
-          .post("http://localhost:9000/order/kakao/ready", { orderId: createdOrderId })
+          .post("http://localhost:9000/payment/kakao/ready", { orderId: createdOrderId })
           .then((res) => {
             window.location.href = res.data.next_redirect_pc_url; // 카카오페이 결제 페이지로 리디렉션
           })
@@ -199,6 +205,9 @@ const handlePaymentSuccess = async (orderId) => {
             extraAddr = ' (' + extraAddr + ')';
           }
         }
+       // 우편번호와 주소 정보를 업데이트
+       console.log('우편번호:', data.zonecode);  // 콘솔에 우편번호 출력
+       console.log('주소:', addr);  // 콘솔에 주소 출력
 
         // 우편번호와 주소 정보를 업데이트
         setOrderInfo({

@@ -26,7 +26,7 @@ const PaymentSuccess = () => {
       // orderId로 주문 정보 요청
       // const response = await axios.get(`http://localhost:9000/order/details/${orderId}`);
 
-      const response = await axios.get(`http://localhost:9000/order/details/3`);
+      const response = await axios.get(`http://localhost:9000/order/details/${orderId}`);
       setOrderData(response.data);
       setLoading(false); // 데이터를 가져왔으므로 로딩 완료
     } catch (err) {
