@@ -16,6 +16,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios"; // axios를 사용하여 REST API 호출
 import { BorderClear } from "@mui/icons-material";
 import { padding } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 // Individual product card component
 export const ProductCard = ({ product, handleLike }) => {
@@ -37,6 +38,9 @@ export const ProductCard = ({ product, handleLike }) => {
 
   // 밀리초를 일(day) 단위로 변환
   const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  const navigate = useNavigate(); //새로운 프로젝트 눌렀을 때 이동하는 네비게이트
+
 
   return (
     <>
@@ -60,6 +64,7 @@ export const ProductCard = ({ product, handleLike }) => {
           transform: "scale(0.95)", // 전체 요소의 크기를 0.9배로 축소
           transformOrigin: "top left", // 스케일 기준점 설정
         }}
+        onClick={() => navigate(`/detail?projectId=${product.id}`)}
       >
         {/* 타이틀과 서브타이틀 */}
         <Box
