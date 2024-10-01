@@ -71,9 +71,6 @@ function Main() {
       <SearchBar search={search} setSearch={setSearch}/>
 
       <ServiceCards></ServiceCards>
-
-
-
       
       <ProductRecommendations sortCondition={"likeCnt"} title={"인기 프로젝트"} subTitle={"좋아요가 가장 많은 프로젝트"}></ProductRecommendations>
       <ProductRecommendations sortCondition={"endDate"} title={"마감 임박 프로젝트"} subTitle={"마감임박! 마지막 기회 놓치지 말아요!"}></ProductRecommendations>
