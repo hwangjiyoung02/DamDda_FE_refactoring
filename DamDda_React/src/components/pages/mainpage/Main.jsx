@@ -20,7 +20,7 @@ import "../../styles/style.css"
 function Main() {
   const navigate = useNavigate();
   
-  const [cartegory, setCartegory] = useState('전체');
+  const [cartegory, setCartegory] = useState('--');
   const [search, setSearch] = useState('');
   const isFirstRender = useRef(true); // 처음 렌더링 여부 추적
 

@@ -25,7 +25,7 @@ import styles from './components/styles/style.css'
 import ProjectDetail from './components/pages/detail/ProjectDetail';
 
 /////////////////////////////주현////////////////////////////////////
-import Main from './components/pages/entire/Main';
+import Entire from './components/pages/entire/Main';
 function App() {
  
 
@@ -54,7 +54,7 @@ function App() {
       <Route path="/mypage" element={<MyPage />} />
       {/* /////////////////////////////주현/////////////////////////////////// */}
 
-      <Route path="/main" element={<Main />} />
+      <Route path="/entire" element={<Entire />} />
 
 
 
