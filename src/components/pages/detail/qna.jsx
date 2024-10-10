@@ -153,7 +153,9 @@ const Qna = () => {
   };
 
   return (
+
     <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
+
       {/* 질문 등록 폼 */}
       <div
         style={{
@@ -194,7 +196,9 @@ const Qna = () => {
       </div>
 
       {/* 등록된 질문 리스트 */}
+
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+
         {questions.map((question, index) => (
           <React.Fragment key={question.id}>
             <Card
