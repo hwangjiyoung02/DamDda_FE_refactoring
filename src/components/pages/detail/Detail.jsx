@@ -452,18 +452,21 @@ const ProductCarousel = ({ productDetail }) => {
       <div className="container">
          <div style={{ paddingTop: "20px",textAlign:"center" }}>
          <div className="project-info">
-              <div className="category">{productDetail.category}</div>
-              <div className="presenter">{productDetail.nickName}</div>
 
-              <h1 className="project-title">{productDetail.title}</h1>
+              <div className="category">{projectData.category}</div>
+              <div className="presenter">{projectData.organizer_id}</div>
+
+              <h1 className="project-title">{projectData.title}</h1>
               <p className="project-description">
-                {productDetail.description}
-                {/* .split('\n').map((line, index) => (
+                {projectData.description.split('\n').map((line, index) => (
+
                   <span key={index}>
                     {line}
                     <br />
                   </span>
-                ))} */}
+
+                ))}
+
       </p>
       </div>
         </div>
@@ -473,13 +476,17 @@ const ProductCarousel = ({ productDetail }) => {
       <div className="container">
         <div style={{ padding: "5px" }}>
           <div style={{ marginBottom: "10px" }}>
-            {/* <Typography variant="category">{productDetail.category}</Typography>
+
+            <Typography variant="category">{productDetail.category}</Typography>
+
             <br />
             <Typography variant="organizer">
               {productDetail.nickName}
             </Typography>
             <Typography variant="h6">{productDetail.title}</Typography>
-            <Typography variant="body2">{productDetail.description}</Typography> */}
+
+            <Typography variant="body2">{productDetail.description}</Typography>
+
           </div>
 
           {/* 
