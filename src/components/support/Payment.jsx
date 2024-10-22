@@ -24,7 +24,7 @@ export function PaymentPage() {
   const location = useLocation(); // 이전 페이지에서 전달된 데이터 접근
   const [orderInfo, setOrderInfo] = useState(location.state || {});
 
-  const [paymentMethod, setPaymentMethod] = useState(""); // 결제 수단 상태
+  // const [paymentMethod, setPaymentMethod] = useState(""); // 결제 수단 상태
   const [showCustomMessageInput, setShowCustomMessageInput] = useState(false); // 배송 메시지 입력 필드 상태
   const [customMessage, setCustomMessage] = useState(""); // 사용자 입력 배송 메시지
 
@@ -85,9 +85,9 @@ export function PaymentPage() {
   };
 
   // 결제 수단 변경 처리
-  const handlePaymentChange = (e) => {
-    setPaymentMethod(e.target.value); // 선택한 결제 수단 반영
-  };
+  // const handlePaymentChange = (e) => {
+  //   setPaymentMethod(e.target.value); // 선택한 결제 수단 반영
+  // };
 
   //메세지가 바뀔때
   const handleDeliveryMessageChange = (e) => {
@@ -140,8 +140,8 @@ export function PaymentPage() {
       !orderInfo.phoneNumber ||
       !orderInfo.email ||
       !orderInfo.postalCode ||
-      !orderInfo.address ||
-      !paymentMethod
+      !orderInfo.address 
+
     ) {
       alert("모든 정보를 기입해주세요.");
       return;
@@ -153,10 +153,9 @@ export function PaymentPage() {
       return;
     }
 
-    // 결제 처리 로직
-    console.log("결제 진행 중...");
 
-    const deliveryMessage = orderInfo.customMessage || orderInfo.request; // 사용자 입력 메시지가 있으면 우선 사용
+
+    const deliveryMessage = orderInfo.customMessage || orderInfo.request; 
     orderInfo.selectedPackages.map((pkg) => console.log(pkg));
     console.log("order Info : ", orderInfo);
     const orderData = {
@@ -170,7 +169,7 @@ export function PaymentPage() {
         deliveryMessage: deliveryMessage, // 최종 메시지
       },
       payment: {
-        paymentMethod: paymentMethod,
+        paymentMethod: "toss pay",
         paymentStatus: "결제 대기 중", // 초기 상태
       },
       supportingProject: {
@@ -203,9 +202,6 @@ export function PaymentPage() {
       })),
     };
 
-    // packageName: orderInfo.selectedPackages[0].packageName, // 패키지 이름
-    // packagePrice: orderInfo.totalAmount + 3000, // 결제 금액
-    // packageCount: orderInfo.selectedPackages[0].quantity, // 패키지 수량 추가
 
     try {
       // 주문 정보 생성 POST 요청 (결제 대기중 상태로 먼저 저장)
@@ -228,7 +224,7 @@ export function PaymentPage() {
       console.log("주문 ID:", createdOrderId);
 
       // 결제 수단에 따른 처리
-      if (paymentMethod === "tossPay") {
+ 
         // TossPay 결제 페이지로 리디렉션
         navigate("/TossReady", {
           state: {
@@ -236,27 +232,8 @@ export function PaymentPage() {
             createdOrderData: orderInfo,
           },
         });
-      } else if (paymentMethod === "kakaoPay") {
-        // 카카오페이 결제창 호출
-        axios
-          .post(
-            `${SERVER_URL}/payment/kakao/ready`,
-            { orderId: createdOrderId },
-            {
-              headers: {
-                ...(Cookies.get("accessToken") && {
-                  Authorization: `Bearer ${Cookies.get("accessToken")}`,
-                }),
-              },
-            }
-          )
-          .then((res) => {
-            window.location.href = res.data.next_redirect_pc_url; // 카카오페이 결제 페이지로 리디렉션
-          })
-          .catch((error) => {
-            console.error("Error initiating payment:", error);
-          });
-      }
+      
+     
     } catch (error) {
       console.error("There was an error creating the order:", error);
     }
@@ -431,64 +408,7 @@ export function PaymentPage() {
               )}
             </div>
 
-            <div className="title">결제수단</div>
-            <div className="form-section">
-              <FormControl component="fieldset" className="payment-method-form">
-                <RadioGroup
-                  className="payment-method-radio-group"
-                  aria-label="payment-method"
-                  name="payment-method"
-                  value={paymentMethod}
-                  onChange={handlePaymentChange}
-                >
-                  <FormControlLabel
-                    className="payment-method-option"
-                    value="naverPay"
-                    control={<Radio color="success" size="medium" />}
-                    label={
-                      <>
-                        <span>네이버 페이</span>
-                        <img
-                          src={naverpay}
-                          alt="네이버페이"
-                          className="payment-logo"
-                        />
-                      </>
-                    }
-                  />
-                  <FormControlLabel
-                    className="payment-method-option"
-                    value="kakaoPay"
-                    control={<Radio color="success" size="medium" />}
-                    label={
-                      <>
-                        <span>카카오페이</span>
-                        <img
-                          src={kakaopay}
-                          alt="카카오페이"
-                          className="payment-logo"
-                        />
-                      </>
-                    }
-                  />
-                  <FormControlLabel
-                    className="payment-method-option"
-                    value="tossPay"
-                    control={<Radio color="success" size="medium" />}
-                    label={
-                      <>
-                        <span>토스 페이</span>
-                        <img
-                          src={tosspay}
-                          alt="토스페이"
-                          className="payment-logo"
-                        />
-                      </>
-                    }
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
+            
           </div>
 
           <div className="small-container">
