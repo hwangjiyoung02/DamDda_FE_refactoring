@@ -9,14 +9,14 @@ import { SERVER_URL } from "constants/URLs";
 import { StandardInputBox } from "components/common/InputBoxComponent";
 import { QnAButtonComponent } from "components/common/ButtonComponent";
 
-export const QnA = ({ nickName, projectId }) => {
+export const QnA = ({ nickName, projectId, hostNickname }) => {
   const [questions, setQuestions] = useState([]);
 
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
   const [replyContent, setReplyContent] = useState({});
   const [replyingTo, setReplyingTo] = useState(null);
-  const { user } = useUser();
+  const { user, isLogin } = useUser();
   //const location = useLocation();
   //const query = new URLSearchParams(location.search);
   //const projectId = query.get("projectId") || "";
@@ -44,42 +44,55 @@ export const QnA = ({ nickName, projectId }) => {
 
   // 문의 등록
   const handleAddQuestion = async () => {
-    const newQuestion = {
-      projectId: Number(projectId),
-      memberId: user.key,
-      author: user.nickname,
-      profileImage: user.profile,
-      date: new Date().toLocaleString(),
-      title: newTitle || "문의제목입니다",
-      content: newContent || "문의 내용을 입력해주세요.",
-      comments: [],
-    };
+    if (isLogin) {
+      if (!newTitle.trim()) {
+        alert("문의 제목을 입력해주세요.");
+        return;
+      }
 
-    console.log(newQuestion);
+      if (!newContent.trim()) {
+        alert("문의 내용을 입력해주세요.");
+        return;
+      }
+      const newQuestion = {
+        projectId: Number(projectId),
+        memberId: user.key,
+        author: user.nickname,
+        profileImage: user.profile,
+        date: new Date().toLocaleString(),
+        title: newTitle || "문의제목입니다",
+        content: newContent || "문의 내용을 입력해주세요.",
+        comments: [],
+      };
 
-    try {
-      const response = await axios.post(
-        `${SERVER_URL}/qna/question`,
-        newQuestion,
-        {
-          headers: {
-            ...(Cookies.get("accessToken") && {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            }),
-          },
-        }
-      );
-      console.log("response.data: ", response.data);
+      console.log(newQuestion);
 
-      alert("등록이 완료되었습니다");
-      setQuestions((prevQuestions) => [...prevQuestions, response.data]);
-      setNewTitle("");
-      setNewContent("");
-    } catch (error) {
-      console.error(
-        "질문을 등록하는 데 실패했습니다.",
-        error.response?.data || error.message
-      );
+      try {
+        const response = await axios.post(
+          `${SERVER_URL}/qna/question`,
+          newQuestion,
+          {
+            headers: {
+              ...(Cookies.get("accessToken") && {
+                Authorization: `Bearer ${Cookies.get("accessToken")}`,
+              }),
+            },
+          }
+        );
+        console.log("response.data: ", response.data);
+
+        alert("등록이 완료되었습니다");
+        setQuestions((prevQuestions) => [...prevQuestions, response.data]);
+        setNewTitle("");
+        setNewContent("");
+      } catch (error) {
+        console.error(
+          "질문을 등록하는 데 실패했습니다.",
+          error.response?.data || error.message
+        );
+      }
+    } else {
+      alert("로그인 후 사용이 가능합니다. ");
     }
   };
 
@@ -137,6 +150,7 @@ export const QnA = ({ nickName, projectId }) => {
           questions.map((question, index) => (
             <React.Fragment key={question.id}>
               <QnAQuestion
+                hostNickname={hostNickname}
                 questions={questions}
                 setQuestions={setQuestions}
                 question={question}
