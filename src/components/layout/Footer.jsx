@@ -26,7 +26,6 @@ export const Footer = () => {
             <div className="img-wrapper-container">
               <div className="img-wrapper">
                 <a
-                  href="https://www.facebook.com/navercloudplatform"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -35,7 +34,6 @@ export const Footer = () => {
               </div>
               <div className="img-wrapper">
                 <a
-                  href="https://www.youtube.com/channel/UC2wPiIf2xSXGTJNqo8UOY9g"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -44,7 +42,6 @@ export const Footer = () => {
               </div>
               <div className="img-wrapper">
                 <a
-                  href="https://medium.com/naver-cloud-platform"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -53,7 +50,6 @@ export const Footer = () => {
               </div>
               <div className="img-wrapper">
                 <a
-                  href="https://www.linkedin.com/company/26665462"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -75,7 +71,6 @@ export const Footer = () => {
                 <div className="horizontal-border-2">
                   <a
                     className="link-2"
-                    href="https://www.ncloud.com/intro/feature"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -87,7 +82,6 @@ export const Footer = () => {
                 <div className="horizontal-border-3">
                   <a
                     className="link-2"
-                    href="https://www.ncloud.com/intro/securitycenter"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -104,7 +98,6 @@ export const Footer = () => {
                 <div className="horizontal-border-2">
                   <a
                     className="link-2"
-                    href="https://edu.ncloud.com/"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -121,14 +114,12 @@ export const Footer = () => {
                 <div className="horizontal-border-2">
                   <a
                     className="link-2"
-                    href="https://www.ncloud.com/support/faq/all"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
                     <div className="container-3">
                       <a
                         className="text-wrapper-5"
-                        href="https://www.ncloud.com/support/faq/all"
                         rel="noopener noreferrer"
                         target="_blank"
                       >
@@ -140,14 +131,12 @@ export const Footer = () => {
                 <div className="horizontal-border-3">
                   <a
                     className="link-2"
-                    href="https://www.ncloud.com/support/overview"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
                     <div className="container-3">
                       <a
                         className="text-wrapper-5"
-                        href="https://www.ncloud.com/support/overview"
                         rel="noopener noreferrer"
                         target="_blank"
                       >
@@ -186,13 +175,14 @@ export const Footer = () => {
                   <div className="container-6">
                     <div className="container-12">
                       <p className="p">
-                        주소: Seoul, Gangnam District, 819 3 삼오빌딩 5-8층
+                        주소: Seoul, Gangnam District
                       </p>
                     </div>
                   </div>
                   <div className="container-6">
                     <p className="text-wrapper-9">
                       © 8bit. All Rights Reserved.
+                      황지영, 이주현, 강태욱, 박민후, 김민희, 한혜원, 김남희, 박세연
                     </p>
                   </div>
                 </div>
