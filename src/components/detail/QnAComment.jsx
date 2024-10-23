@@ -164,12 +164,18 @@ export const QnAComment = ({
                 {replyContent.memberId} : {replyContent.content}
               </Typography>
               <div>
-                <IconButton onClick={handleEditComment}>
-                  <Edit fontSize="small" />
-                </IconButton>
-                <IconButton onClick={() => handleDeleteReply(replyContent.id)}>
-                  <Delete fontSize="small" />
-                </IconButton>
+                {replyContent.memberId === user.nickname && (
+                  <IconButton onClick={handleEditComment}>
+                    <Edit fontSize="small" />
+                  </IconButton>
+                )}
+                {replyContent.memberId === user.nickname && (
+                  <IconButton
+                    onClick={() => handleDeleteReply(replyContent.id)}
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                )}
               </div>
             </div>
             // <Typography
