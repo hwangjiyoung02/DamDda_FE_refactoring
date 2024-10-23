@@ -34,9 +34,7 @@ export function Header() {
   const [showProfileCard, setShowProfileCard] = useState(false); // 프로필 카드 표시 여부
   // const [profileOpen, setProfileOpen] = useState(false);
   const { logout, isLogin, user, setUser } = useUser();
-  //
-  // user.id = "테스트 용이라 삭제해야함";
-  // user.id = null;
+
 
   const navigate = useNavigate();
   console.log(user.profile);
@@ -189,7 +187,7 @@ export function Header() {
 
   return (
     <AppBar position="fixed" sx={{ bgcolor: "#fafafa", boxShadow: "none" }}>
-      <Container maxWidth="1520px" sx={{ width: "80%", margin: "0 auto" }}>
+      <Container maxWidth="1520px" sx={{ width: "90%", margin: "0 auto" }}>
         <Toolbar
           disableGutter
           sx={{
@@ -202,7 +200,7 @@ export function Header() {
             <img
               src={logo}
               alt="logo"
-              style={{ width: "170px", height: "70px", marginLeft: "100px" }}
+              style={{ width: '175px', height: '65px', marginLeft: '100px' }} />
             />
           </Link>
 
