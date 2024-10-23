@@ -23,6 +23,7 @@ export const QnAQuestion = ({
   questions,
   setQuestions,
   question,
+  hostNickname,
   replyingTo,
   setReplyingTo,
   // replyContent,
@@ -92,6 +93,7 @@ export const QnAQuestion = ({
       console.log("response.data: ", response.data);
 
       alert("등록이 완료되었습니다");
+      //window.location.reload();
       setReplyContents((prevQuestions) => [...prevQuestions, response.data]);
       setNewReplyContent("");
     } catch (error) {
@@ -211,6 +213,11 @@ export const QnAQuestion = ({
     // }));
   };
 
+  console.log(
+    "question.memberId === user.nickName : ",
+    question.memberId,
+    user.nickname
+  );
   return (
     <Card
       style={{
@@ -238,12 +245,16 @@ export const QnAQuestion = ({
                 {question.memberId}
               </Typography>
               <div>
-                <IconButton onClick={() => setEditMode(true)}>
-                  <Edit fontSize="small" />
-                </IconButton>
-                <IconButton onClick={() => handleDeleteQuestion(question.id)}>
-                  <Delete fontSize="small" />
-                </IconButton>
+                {question.memberId === user.nickname && (
+                  <IconButton onClick={() => setEditMode(true)}>
+                    <Edit fontSize="small" />
+                  </IconButton>
+                )}
+                {question.memberId === user.nickname && (
+                  <IconButton onClick={() => handleDeleteQuestion(question.id)}>
+                    <Delete fontSize="small" />
+                  </IconButton>
+                )}
               </div>
             </div>
             <Typography variant="caption" color="textSecondary">
@@ -353,23 +364,28 @@ export const QnAQuestion = ({
                       setReplyContents={setReplyContents}
                     />
                   ))}
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <div style={{ width: "85%", margin: "10px" }}>
-                    <StandardInputBox
-                      placeholder="댓글을 작성해주세요"
-                      rows={2}
-                      value={newReplyContent}
-                      onChange={(e) => setNewReplyContent(e.target.value)}
-                      //style={{ margin: "10px" }}
-                    />
+                {(user.nickname === question.memberId ||
+                  user.nickname === hostNickname) && (
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{ width: "85%", margin: "10px" }}>
+                      <StandardInputBox
+                        placeholder="댓글을 작성해주세요"
+                        rows={2}
+                        value={newReplyContent}
+                        onChange={(e) => setNewReplyContent(e.target.value)}
+                        //style={{ margin: "10px" }}
+                      />
+                    </div>
+                    <div
+                      style={{ width: "15%", height: "53px", margin: "10px" }}
+                    >
+                      <QnASmallButtonComponent
+                        text={"댓글작성"}
+                        onClick={handleAddComment}
+                      />
+                    </div>
                   </div>
-                  <div style={{ width: "15%", height: "53px", margin: "10px" }}>
-                    <QnASmallButtonComponent
-                      text={"댓글작성"}
-                      onClick={handleAddComment}
-                    />
-                  </div>
-                </div>
+                )}
               </>
             )}
           </div>
