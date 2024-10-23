@@ -50,7 +50,7 @@ const TranslatePage = () => {
       });
     }
 
-    setIsTranslated(true); // 번역 완료 상태
+    setIsTranslated(false); // 번역 완료 상태
     setShowLanguageOptions(false); // 언어 선택 옵션 숨기기
   };
 
