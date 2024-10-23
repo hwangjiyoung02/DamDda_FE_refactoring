@@ -519,7 +519,7 @@ export const DetailPage = () => {
       </div>
 
       <div style={{ padding: "20px", width: "90%", margin: "0 auto" }}>
-        <QnA />
+        <QnA nickName={projectDetail.nickName} projectId={projectDetail.id} />
       </div>
 
       {modalVisible && (
