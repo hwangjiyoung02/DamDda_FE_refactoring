@@ -202,7 +202,6 @@ export function Header() {
               src={logo}
               alt="logo"
               style={{ width: '175px', height: '65px', marginLeft: '100px' }} />
-            />
           </Link>
 
           <Box
