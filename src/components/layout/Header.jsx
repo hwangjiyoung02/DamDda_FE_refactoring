@@ -188,7 +188,7 @@ export function Header() {
 
   return (
     <AppBar position="fixed" sx={{ bgcolor: "#fafafa", boxShadow: "none" }}>
-      <Container maxWidth="1520px" sx={{ width: "90%", margin: "0 auto" }}>
+      <Container maxWidth="1520px" sx={{ width: "75%", margin: "0 auto" }}>
         <Toolbar
           disableGutter
           sx={{
