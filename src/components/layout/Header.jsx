@@ -71,7 +71,8 @@ export function Header() {
   //프로필
 
   const handleShowProjects = () => {
-    if (user.id) {
+    if (isLogin) {
+      fetchWritingProject();
       setShowProjects(!showProjects); // 버튼을 누를 때마다 프로젝트 리스트 표시 여부 토글
       if (!showProjects) {
         setShowProfileCard(false); // 프로필 카드를 닫음
@@ -109,7 +110,7 @@ export function Header() {
   };
 
   useEffect(() => {
-    fetchWritingProject();
+    //fetchWritingProject();
   }, []);
 
   const navigateRegister = async () => {
