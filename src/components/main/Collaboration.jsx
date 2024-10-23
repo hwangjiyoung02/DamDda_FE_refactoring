@@ -2,8 +2,10 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import CollaborationImage from "../../assets/CollaborationImage.png";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "UserContext";
 
 export const Collaboration = () => {
+  const { isLogin } = useUser();
   const navigate = useNavigate();
   return (
     <Box
@@ -34,9 +36,13 @@ export const Collaboration = () => {
       <Button
         variant="contained"
         onClick={() => {
-          navigate(`/mypage?initIndex=${4}`, {
-            state: { forceReload: Date.now() },
-          });
+          if (isLogin) {
+            navigate(`/mypage?initIndex=${4}`, {
+              state: { forceReload: Date.now() },
+            });
+          } else {
+            alert("로그인 후 사용 가능합니다.");
+          }
         }}
         sx={{
           backgroundColor: "white",
