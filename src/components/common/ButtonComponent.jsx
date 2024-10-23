@@ -249,3 +249,46 @@ export const LoginBlueButtonComponent = ({ text, onClick, type = 'button', onKey
         </button>
     );
 };
+
+
+
+
+//------------------------------QnA 추가 시작--------------------------------------------//
+// QnA 버튼
+
+export const QnASmallButtonComponent = ({ text, onClick }) => {
+  const buttonStyle = {
+    backgroundColor: "#677cf9",
+    padding: "5px 5px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    color: "#ffffff",
+    fontSize: "12px",
+    width: "100%",
+    height: "100%",
+  };
+  return (
+    <button style={buttonStyle} onClick={onClick} size="small">
+      {text}
+    </button>
+  );
+};
+
+export const QnAButtonComponent = ({ text, onClick }) => {
+  const buttonStyle = {
+    backgroundColor: "#677cf9",
+    padding: "5px 5px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    color: "#ffffff",
+    width: "150px",
+  };
+  return (
+    <button style={buttonStyle} onClick={onClick}>
+      {text}
+    </button>
+  );
+};
+//------------------------------QnA 추가 끝--------------------------------------------//
