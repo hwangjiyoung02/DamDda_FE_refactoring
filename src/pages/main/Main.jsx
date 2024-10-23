@@ -155,11 +155,13 @@ export function Main() {
           title={"인기 프로젝트"}
           subTitle={"좋아요가 가장 많은 프로젝트"}
         />
-        <ProjectRowComponent
-          sortCondition={"endDate"}
-          title={"마감 임박 프로젝트"}
-          subTitle={"마감임박! 마지막 기회 놓치지 말아요!"}
+                <ProjectRowComponent
+          sortCondition={"targetFunding"}
+          title={"최다 후원 프로젝트"}
+          subTitle={"많은 사람들의 이유있는 후원! 후원금이 가장 많은 프로젝트!"}
         />
+
+        
         <NewsSection cardData={cardData} />
         <div
           style={{
@@ -190,11 +192,13 @@ export function Main() {
           title={"최다 조회 프로젝트"}
           subTitle={"많은 사람들이 구경한 프로젝트"}
         />
+        
         <ProjectRowComponent
-          sortCondition={"targetFunding"}
-          title={"최다 후원 프로젝트"}
-          subTitle={"많은 사람들의 이유있는 후원! 후원금이 가장 많은 프로젝트!"}
+          sortCondition={"endDate"}
+          title={"마감 임박 프로젝트"}
+          subTitle={"마감임박! 마지막 기회 놓치지 말아요!"}
         />
+        
         {/* <ShortcutBoxComponent services={services} /> */}
       </Box>
     </Layout>
