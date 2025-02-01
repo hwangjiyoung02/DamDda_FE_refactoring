@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useUser, UserProvider } from "./UserContext";
+import { UserProvider } from "./UserContext";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import LoginPage from "./member/LoginPage";
