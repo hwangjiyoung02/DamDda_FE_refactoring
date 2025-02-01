@@ -3,6 +3,7 @@ on:
   push: # main Branch에서 push 이벤트가 일어났을 때만 실행
     branches:
       - main
+  workflow_dispatch: #  develop 브랜치에서 커밋 후 GitHub Actions 탭으로 가서 Run workflow 버튼을 눌러 실행
 
 jobs:
   build:
