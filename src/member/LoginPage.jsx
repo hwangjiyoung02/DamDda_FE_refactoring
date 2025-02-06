@@ -2,18 +2,16 @@ import React from 'react';
 import './LoginPage.css'; // 스타일 파일 임포트
 
 const LoginPage = () => {
-  // 구글 OAuth 리디렉션 URL
+  const backendBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
+  // 구글 OAuth 요청
   const handleGoogleLogin = () => {
-    const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-    const redirectUri = process.env.REACT_APP_NAVER_CALLBACK_URL;  // Google의 리디렉션 URL도 동일하게 설정
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
+    window.location.href = `${backendBaseUrl}/oauth2/authorization/google`;
   };
 
-  // 네이버 OAuth 리디렉션 URL
+  // 네이버 OAuth 요청
   const handleNaverLogin = () => {
-    const naverClientId = process.env.REACT_APP_NAVER_CLIENT_ID;
-    const redirectUri = `${process.env.REACT_APP_API_BASE_URL}/authnaver`;  // 수정된 경로
-    window.location.href = `https://nid.naver.com/oauth2.0/authorize?client_id=${naverClientId}&redirect_uri=${redirectUri}&response_type=code&state=YOUR_STATE`;
+    window.location.href = `${backendBaseUrl}/oauth2/authorization/naver`;
   };
 
   return (
