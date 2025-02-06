@@ -1,97 +1,55 @@
-import React, { useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import NaverLogin from "react-naver-login";
+import React from 'react';
+import './LoginPage.css'; // 스타일 파일 임포트
 
-function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginPage = () => {
+  const backendBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
+  // 구글 OAuth 요청
+  const handleGoogleLogin = () => {
+    window.location.href = `${backendBaseUrl}/oauth2/authorization/google`;
   };
 
-  const handleGoogleSuccess = (response) => {
-    console.log('Google login successful:', response);
-  };
-
-  const handleGoogleError = () => {
-    console.error('Google login failed');
-  };
-
-  const handleNaverLoginSuccess = (response) => {
-    console.log('Naver login successful:', response);
-  };
-
-  const handleNaverLoginError = (error) => {
-    console.error('Naver login failed:', error);
+  // 네이버 OAuth 요청
+  const handleNaverLogin = () => {
+    window.location.href = `${backendBaseUrl}/oauth2/authorization/naver`;
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-      <h2 className="text-2xl font-bold mb-4">Login Page</h2>
-      
-      {/* 이메일/비밀번호 로그인 */}
-      <form className="w-full max-w-sm bg-white p-6 shadow rounded-lg" onSubmit={handleLoginSubmit}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+    <div className="login-container">
+      <h1>임대주택 가격 서비스</h1>
+      <form className="login-form">
+        <div className="form-group">
+          <label htmlFor="username">아이디</label>
           <input
-            type="email"
-            className="w-full p-2 border rounded-md"
-            placeholder="Enter your email"
-            value={email}
-            onChange={handleEmailChange}
+            type="text"
+            id="username"
+            placeholder="아이디를 입력해주세요"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <div className="form-group">
+          <label htmlFor="password">비밀번호</label>
           <input
             type="password"
-            className="w-full p-2 border rounded-md"
-            placeholder="Enter your password"
-            value={password}
-            onChange={handlePasswordChange}
+            id="password"
+            placeholder="비밀번호를 입력해주세요"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-        >
-          Login
-        </button>
+        <button type="submit" className="login-button">로그인</button>
       </form>
-
-      <div className="mt-6 w-full max-w-sm">
-        <h3 className="text-center text-sm font-semibold mb-4">Or login with:</h3>
-        <div className="flex flex-col gap-3">
-          {/* Google 로그인 */}
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-          />
-
-          {/* Naver 로그인 */}
-          <NaverLogin
-            clientId={process.env.REACT_APP_NAVER_CLIENT_ID}
-            callbackUrl={process.env.REACT_APP_NAVER_CALLBACK_URL}
-            onSuccess={handleNaverLoginSuccess}
-            onFailure={handleNaverLoginError}
-            render={(props) => (
-              <button
-                className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
-                onClick={props.onClick}
-              >
-                Login with Naver
-              </button>
-            )}
-          />
+      <div className="signup-sns">
+        <button className="signup-button">최담가입</button>
+        <div className="sns-login">
+          <span>SNS 로그인</span>
+          <button onClick={handleGoogleLogin} className="sns-button google">
+            구글로 로그인
+          </button>
+          <button onClick={handleNaverLogin} className="sns-button naver">
+            네이버로 로그인
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default LoginPage;
