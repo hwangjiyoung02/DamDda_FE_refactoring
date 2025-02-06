@@ -1,9 +1,10 @@
 name: React build
-on: 
-  push: # main Branch에서 push 이벤트가 일어났을 때만 실행
+
+on:
+  push:
     branches:
-      - main
-  workflow_dispatch: #  develop 브랜치에서 커밋 후 GitHub Actions 탭으로 가서 Run workflow 버튼을 눌러 실행
+      - temp/test-workflow  # temp/test-workflow 브랜치에 푸시될 때 실행
+  workflow_dispatch:   # GitHub UI에서 'Run workflow' 버튼을 눌러 수동으로 실행할 수 있도록 설정
 
 jobs:
   build:
